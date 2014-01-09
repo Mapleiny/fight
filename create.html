@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="stylesheets/lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/tools/assembl_image/index.css">
+</head>
+<body>
+<div class="container">
+	<h1 class="text-center">图片合成</h1>
+	<div class="row">
+		<div class="col-md-3">
+			<div id="soruce" class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">资源列表<a href="javascript:;" class="btn btn-info btn-xs pull-right">清空</a></h3>
+				</div>
+				<div class="panel-body">
+					<p class="text-center" style="color:#ccc;">将图片文件拖拽到此处</p>
+					<div id="data-list">
+						
+					</div>
+				</div>
+			</div>
+			<div id="canvas-config" class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">资源信息</h3>
+				</div>
+				<div class="panel-body" id="soruce-info">
+					<div>图片名称：<span role="name"></span></div>
+					<div>宽(width)：<span role="width"></span>px</div>
+					<div>高(height)：<span role="height"></span>px</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div id="canvas-list" class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						画布列表
+						<div class="btn-group pull-right">
+							<button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
+							操作 <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="javascript:;" id="compose">合成图片并导出代码</a></li>
+							</ul>
+						</div>
+						<a href="javascript:;" class="btn btn-info btn-xs pull-right" id="animate-canvas" data-toggle="off">连续播放</a>
+					</h3>
+				</div>
+				<div class="panel-body" id="canvas-list-data">
+					<div id="animate-set">
+						<label>
+							<span>间隔</span>
+							<input type="number" id="interval" value="20">
+						</label>
+					</div>
+				</div>
+			</div>
+			<div id="display" class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						画布
+						<a href="javascript:;" class="btn btn-danger btn-xs pull-right">清空</a>
+					</h3>
+				</div>
+				<div class="panel-body">
+					<div class="outter">
+						<div id="size-set">
+							<div class="top"></div>
+							<div class="right top"></div>
+							<div class="right"></div>
+							<div class="right bottom"></div>
+							<div class="bottom"></div>
+							<div class="left bottom"></div>
+							<div class="left"></div>
+							<div class="left top"></div>
+						</div>
+						<canvas id="canvas"></canvas>
+					</div>
+				</div>
+			</div>
+			<div id="unit" class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						单位列表
+						<a href="javascript:;" class="btn btn-danger btn-xs pull-right" id="delete-soruce">删除</a>
+					</h3>
+				</div>
+				<div class="panel-body">
+					<div id="selected-soruce">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div id="config">
+				<div id="canvas-config" class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">画布设置 <a href="javascript:;" class="btn btn-info btn-xs pull-right" id="add-canvas">添加新画布</a></h3>
+					</div>
+					<div class="panel-body form-horizontal" id="canvas-info">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">名称</label>
+							<div class="col-sm-9 input-group-sm">
+								<input type="text" class="form-control" name="name">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">width</label>
+							<div class="col-sm-9 input-group-sm">
+								<input type="number" class="form-control" name="width">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">height</label>
+							<div class="col-sm-9 input-group-sm">
+								<input type="number" class="form-control" name="height">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="soruce-config" class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">单位设置</h3>
+					</div>
+					<div class="panel-body form-horizontal" id="soruce-cvs-info">
+						<div class="form-group">
+							<label class="col-sm-6 control-label">sourceX</label>
+							<div class="col-sm-6 input-group-sm">
+								<input type="number" class="form-control" name="sourceX">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-6 control-label">sourceY</label>
+							<div class="col-sm-6 input-group-sm">
+								<input type="number" class="form-control" name="sourceY">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-6 control-label">sourceWidth</label>
+							<div class="col-sm-6 input-group-sm">
+								<input type="number" class="form-control" name="sourceWidth">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-6 control-label">sourceHeight</label>
+							<div class="col-sm-6 input-group-sm">
+								<input type="number" class="form-control" name="sourceHeight">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-6 control-label">posX</label>
+							<div class="col-sm-6 input-group-sm">
+								<input type="number" class="form-control" name="posX">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-6 control-label">posY</label>
+							<div class="col-sm-6 input-group-sm">
+								<input type="number" class="form-control" name="posY">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-6 control-label">destWidth</label>
+							<div class="col-sm-6 input-group-sm">
+								<input type="number" class="form-control" name="destWidth">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-6 control-label">destHeight</label>
+							<div class="col-sm-6 input-group-sm">
+								<input type="number" class="form-control" name="destHeight">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-6 control-label">z-index</label>
+							<div class="col-sm-6 input-group-sm">
+								<input type="number" class="form-control" name="zIndex">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="composeShow">
+	<button type="button" class="close">&times;</button>
+	<div class="img text-center">
+		<img>
+	</div>
+	<div class="code">
+		<textarea class="form-control"></textarea>
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="javscripts/require.js" data-main="javscripts/tool/assembl_image/main.js"></script>
