@@ -26,7 +26,7 @@
 define(['core/display','util/object'],function ( Display , object){
 	var Base = function(init){
 		var _this = this;
-
+		console.log(init.shape);
 		Display.call( _this , {
 			shape : init.shape,
 			posX : init.posX,
@@ -87,7 +87,7 @@ define(['core/display','util/object'],function ( Display , object){
 		 * 
 		 */
 		},isDied : function(){
-			return this.health > 0;
+			return this.health <= 0;
 		},updataArea : function(){
 			var _this = this;
 			this.area.upadataPonint({
@@ -97,6 +97,15 @@ define(['core/display','util/object'],function ( Display , object){
 				height : _this.size.height
 			});
 			return this;
+		},control : function(){
+			var _this = this;
+
+			if( _this.isDied() ){
+				_this.animateType = 'destroy'
+			}else{
+
+			}
+			_this.animateList[_this.animateType].call(_this);
 		}
 	};
 

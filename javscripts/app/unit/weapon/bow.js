@@ -17,7 +17,7 @@
  * @function     Number     isEmpty()      null       判断子弹数量
  * @function     Array      getBullets()   null       射出的子弹 
  */
-define(['unit/weapon/arrow','unit/weapon/base','util/object'],function ( Arrow , Base , object){
+define(['./bullet/arrow','unit/weapon/base','util/object'],function ( Arrow , Base , object){
 	
 	var Bow = function(init){
 		var _this = this;

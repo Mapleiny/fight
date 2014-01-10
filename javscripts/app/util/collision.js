@@ -51,7 +51,7 @@ define(['util/math','util/object'],function ( math , object ){
 		 * @param {Funtion} action 碰撞后执行的操作
 		 */
 		},setCheckRule : function( typeArr , action ){
-			var _this = this，
+			var _this = this,
 				checkRule = _this.checkRule;
 			if( ( typeArr instanceof Array ) && ( typeArr.length > 1 ) && ( action instanceof Function ) ){
 				checkRule.push({

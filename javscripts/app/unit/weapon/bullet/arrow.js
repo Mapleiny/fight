@@ -10,7 +10,7 @@
  *
  * 方法与属性：返回值     方法名      参数类别    描述
  */
-define(['unit/weapon/bullet/base','util/object','core/source'],function ( Base , object , Source ){
+define(['./base','util/object','core/source'],function ( Base , object , Source ){
 	
 	var Arrow = function(init){
 		Base.call(this,{
@@ -38,47 +38,6 @@ define(['unit/weapon/bullet/base','util/object','core/source'],function ( Base ,
 		init : function(){
 			var _this = this;
 			
-		},control : (function(){
-			var sum , loop , count , interval;
-			return function( type ){
-				var _this = this,
-					index;
-
-				if( type && ( type in _this ) && ( _this[type] instanceof function ) ){
-					_this.animateType = type;
-					count = 0;
-					loop = _this.animateList[type].loop;
-					interval = _this.animateList[type].interval;
-					sum = _this.animateList[type].list.length;
-				}
-
-				if( interval === 0 ){
-					index = 0;
-				}else{
-					index = ~~( count / interval );
-				}
-
-
-				if( index < sum ){
-					_this[_this.animateType].call(_this, index );
-				}else if( loop ){
-					count = 0;
-				}else{
-					_this.remove = true;
-				}
-				
-
-				count++;
-
-				return this;
-			};
-		})(),damage : function(index){
-			var _this = this;
-			if( 'damage' in _this.animateList ){
-				_this.animateList['damage'].list[index].call(_this);
-			}
-
-			return this;
 		}
 	};
 

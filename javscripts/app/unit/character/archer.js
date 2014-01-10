@@ -9,7 +9,7 @@
  * @param  {[type]} Source [description]
  * @return {[type]}        [description]
  */
-define(['unit/base','unit/weapon/bow','util/object','core/source'],function ( Base , Bow , object , Source){
+define(['./base','unit/weapon/bow','util/object','core/source'],function ( Base , Bow , object , Source){
 	var Archer = function( init ){
 		var _this = this;
 
@@ -27,6 +27,10 @@ define(['unit/base','unit/weapon/bow','util/object','core/source'],function ( Ba
 				shiftY : 0
 			})]
 		});
+
+		_this.name = "archer";
+
+		_this.init();
 	};
 /**
  * animateList : [{
@@ -72,9 +76,11 @@ define(['unit/base','unit/weapon/bow','util/object','core/source'],function ( Ba
 						this.shape.sourceY = 0;
 					}],
 					callBack : function(){
+						console.log('before fire');
 						_this.weapon.fire();
 					},callBackIndex : 1
 				}];
+			_this.setAnimateList(animateList);
 		}
 	};
 

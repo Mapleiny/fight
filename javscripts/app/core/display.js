@@ -1,7 +1,7 @@
 /**
  * 单位动画表现类
  * core/display.js
- * 
+ *
  * 参数：
  * @param Object {}
  *        {Number}            posX      X轴方向上的位置
@@ -20,21 +20,22 @@ define(['core/imageCvs'],function (imageCvs){
 		_canvas.height = height;
 		return _canvas;
 	},createAnimateFunc = function(init){
-		var sum , time , count , save , i , funList , interval , loop , returnValue;
-		sum = init.funList.length;
+		var sum , time , count , save , i , funcList , interval , loop , returnValue;
+		sum = init.funcList.length;
 		interval = init.interval;
 		save = time = count = sum * interval;
 		loop = init.loop;
-		funList = init.funList;
+		funcList = init.funcList;
 		callBack = init.callBack;
 		callBackIndex = init.callBackIndex;
 		i = 0 ;
 		return function(){
+			console.log("time:%d,count:%d,i:%d,interval:%d,save:%d,callBackIndex:%d,loop:%s",time,count,i,interval,save,callBackIndex,loop);
 			if( sum <= 0 ){
 				return false;
 			}
 			if( count === time ){
-				funList[i].call(this);
+				funcList[i].call(this);
 				if( i === callBackIndex ){
 					callBack.call(this);
 				}
@@ -43,7 +44,7 @@ define(['core/imageCvs'],function (imageCvs){
 			}
 			--count;
 			if( loop ){
-				if( count <== 0 ){
+				if( count <= 0 ){
 					count = save;
 					time = save;
 					i = 0;
@@ -88,7 +89,6 @@ define(['core/imageCvs'],function (imageCvs){
 		_this._ctx = _this._canvas.getContext('2d');
 	};
 
-	
 	Display.prototype  = {
 		drawData : function(){
 			var _this = this,
@@ -109,17 +109,17 @@ define(['core/imageCvs'],function (imageCvs){
 				zIndex : _this.zIndex
 			};
 		/**
-		 * 注册动画
-		 *
-		 * @param Array  []
-		 *        	Object {}
-		 *        		{String}   name
-		 *        		{Number}   loop
-		 *        		{Number}   interval
-		 *        		{Array}    funcList
-		 *        		{Funtion}  callBack
-		 *        		{Number}   callBackIndex
-		 */
+		* 注册动画
+		*
+		* @param Array  []
+		*				Object {}
+		*				{String}   name
+		*				{Number}   loop
+		*				{Number}   interval
+		*				{Array}    funcList
+		*				{Funtion}  callBack
+		*				{Number}   callBackIndex
+		*/
 		},setAnimateList : function (params){
 			var _this = this;
 
@@ -165,4 +165,6 @@ define(['core/imageCvs'],function (imageCvs){
 			return this;
 		}
 	};
+
+	return Display;
 });

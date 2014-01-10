@@ -61,7 +61,7 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 
 
 		// 当前动作状态
-		_this.animateType = 'move';
+		_this.animateType = 'attack';
 
 		_this.loadWeapon();
 	};
@@ -105,6 +105,7 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 		 */
 		},getDamage : function( attack ){
 			var _this = this;
+			console.log(_this.name + ' get attack cost '+attack);
 			_this.health -= attack;
 			return this;
 		/**
@@ -129,7 +130,7 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 		 * 
 		 */
 		},isDied : function(){
-			return this.health > 0;
+			return this.health <= 0;
 		/**
 		 * 添加新武器
 		 * @param {object} weaponObj 武器对象
@@ -146,10 +147,9 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 			if( _this.isDied() ){
 				_this.animateType = 'destroy';
 			}else{
-				if(  )
+				
 			}
-
-			_this.animateList[_this.animateType].call(_this)
+			_this.animateList[_this.animateType].call(_this);
 
 		},updataArea : function(){
 			var _this = this;
