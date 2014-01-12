@@ -6,8 +6,6 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 
 		_this.collision = new Collision();
 
-		_this.unitList = {};
-
 		_this.unitCount = 0;
 
 		_this.unitId = 0;
@@ -31,6 +29,8 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 				posX : 500,
 				posY : 0
 			}) , 'rightUnit' );
+
+			_this.setcollisionAction();
 			return this;
 		},draw : function(){
 			var _this = this,
@@ -39,6 +39,7 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 				ctx = _this.ctx,
 				drawData;
 			_this.control();
+			
 			ctx.clearRect( 0 , 0 , _this.maxWidth , _this.maxHeight );
 			for( i = 0 , sum = animateList.length ; i < sum ; ++i ){
 				drawData = animateList[i].drawData();
@@ -49,38 +50,46 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 			var _this = this,
 				animateList = _this.animateList,
 				collision = _this.collision,
-				thisAnimate , i , sum , j , all;
+				thisAnimate , i , sum , j , all ,
+				bullets;
 			for( i = 0 , sum = animateList.length ; i < sum ; ++i ){
 				thisAnimate = animateList[i];
 				thisAnimate.control();
+
+				// 如果单位需要被清除
 				if( thisAnimate.remove ){
-					object.deleteArr( animateList , i );
+					_this.animateList = object.deleteArr( _this.animateList , i );
 				}
+
+				// 对于会有子弹输出的单位处理
 				if( thisAnimate instanceof unitBase ){
-					if( thisAnimate.weapon.getBullets.length > 0 ){
-						for( j = 0 , all = thisAnimate.weapon.getBullets.length ; j < all ; ++i ){
-							_this.addUnit( thisAnimate.weapon.getBullets[j] , 'rightBullet' );
-						}
+					bullets = thisAnimate.weapon.getBullets();
+					for( j = 0 , all = bullets.length ; j < all ; ++j ){
+						_this.addUnit( bullets[j] , 'rightBullet' );
 					}
 				}
 			}
+
+			// 碰撞检测
 			collision.checkCollision();
-		},addUnit : function( unitObj , collisiontType ){
+
+			return this;
+		},addUnit : function( unitObj , collisionType ){
 			var _this = this,
-				unitList = _this.unitList,
 				collision = _this.collision,
 				animateList = _this.animateList;
-			unitList[_this.unitId] = unitObj;
 
-			if( collisiontType ){
+			if( collisionType ){
 				collision.push({
-					type : collisiontType,
+					type : collisionType,
 					key : 'area',
 					obj : unitObj
 				});
-				animateList.push(unitObj);
-
+			}else{
+				console.error('no collisionType set!');
 			}
+
+			animateList.push(unitObj);
 
 			++_this.unitId;
 
@@ -102,11 +111,14 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 			// 单位进入攻击范围
 			collision.setCheckRule(['leftUnit','rightWeapon'],function ( leftUnit , rightWeapon ){
 				rightWeapon.target.animateType = 'attack';
+			},function ( leftUnit , rightWeapon ){
+				rightWeapon.target.animateType = 'move';
 			});
 			collision.setCheckRule(['rightUnit','leftWeapon'],function ( leftUnit , leftWeapon ){
 				leftWeapon.target.animateType = 'attack';
+			},function ( leftUnit , leftWeapon ){
+				rightWeapon.target.animateType = 'move';
 			});
-
 
 		}
 	};

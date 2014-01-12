@@ -66,7 +66,7 @@ define(['util/object','core/imageCvs','util/rectangle'],function (object,imageCv
 		
 		_this.posX = init.posX;
 		_this.posY = init.posY;
-		_this.radius = getAnimateAreaRadius(_this.edge);
+		_this.radius = getAnimateAreaRadius(_this._edge);
 		_this.angle = 0;
 		_this.scale = 1;
 		_this.zIndex = 0;
@@ -105,7 +105,7 @@ define(['util/object','core/imageCvs','util/rectangle'],function (object,imageCv
 			return this;
 		},updataCtx : function(){
 			var _this = this,
-				data = _this.data,
+				data = _this.shape,
 				round = Math.round,
 				_radius = _this.radius,
 				_ctx = _this._ctx,

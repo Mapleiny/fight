@@ -3,8 +3,7 @@ require.config({
      paths: {
         lib: '../lib',
         jQuery : '../lib/jquery/jquery-2.0.min',
-    },
-    urlArgs: "bust=" + (new Date()).getTime()
+    },urlArgs: "bust=" + (new Date()).getTime()
 });
 
 require(['game/test','jQuery'],function (test){

@@ -30,7 +30,7 @@ define(['core/imageCvs'],function (imageCvs){
 		callBackIndex = init.callBackIndex;
 		i = 0 ;
 		return function(){
-			console.log("time:%d,count:%d,i:%d,interval:%d,save:%d,callBackIndex:%d,loop:%s",time,count,i,interval,save,callBackIndex,loop);
+			//console.log("time:%d,count:%d,i:%d,interval:%d,save:%d,callBackIndex:%d,loop:%s",time,count,i,interval,save,callBackIndex,loop);
 			if( sum <= 0 ){
 				return false;
 			}

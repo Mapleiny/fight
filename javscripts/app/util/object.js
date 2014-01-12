@@ -14,7 +14,7 @@ define(function(){
 			if( index < 0 ){
 				return arr;
 			}else{
-				return arr.slice( 0 , n ).concat( arr.slice( n + 1 , arr.length ) );
+				return arr.slice( 0 , index ).concat( arr.slice( index + 1 , arr.length ) );
 			}
 		}
 	};

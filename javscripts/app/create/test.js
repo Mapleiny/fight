@@ -24,8 +24,8 @@ define(['create/drag','core/animateObj','create/canvas','util/object'],function 
 			if( key in _soruce ){
 				_soruce[key] = value;
 			}
-			if( key in _soruce.data ){
-				_soruce.data[key] = value;
+			if( key in _soruce.shape ){
+				_soruce.shape[key] = value;
 			}
 		}
 	}
@@ -222,7 +222,7 @@ define(['create/drag','core/animateObj','create/canvas','util/object'],function 
 			}
 			for( i = 0 , sum = keyList.length ; i < sum ; ++i ){
 				key = keyList[i];
-				elem.find(nodeattr+key+'"]')[make](data[key]||'');
+				elem.find(nodeattr+key+'"]')[make](data[key] || '');
 			}
 		},insertSoruce : function( src , data ){
 			var _this = this,
@@ -261,12 +261,12 @@ define(['create/drag','core/animateObj','create/canvas','util/object'],function 
 				return {
 					'posX' : temp.posX,
 					'posY' : temp.posY,
-					'sourceX' : temp.data.sourceX,
-					'sourceY' : temp.data.sourceY,
-					'sourceWidth' : temp.data.sourceWidth,
-					'sourceHeight' : temp.data.sourceHeight,
-					'destWidth' : temp.data.destWidth,
-					'destHeight' : temp.data.destHeight,
+					'sourceX' : temp.shape.sourceX,
+					'sourceY' : temp.shape.sourceY,
+					'sourceWidth' : temp.shape.sourceWidth,
+					'sourceHeight' : temp.shape.sourceHeight,
+					'destWidth' : temp.shape.destWidth,
+					'destHeight' : temp.shape.destHeight,
 					'zIndex' : temp.zIndex
 				};
 			}else{

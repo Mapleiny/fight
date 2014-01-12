@@ -3,7 +3,7 @@ require.config({
      paths: {
         lib: '../lib',
         jQuery : '../lib/jquery/jquery-2.0.min',
-    }
+    },urlArgs: "bust=" + (new Date()).getTime()
 });
 
 

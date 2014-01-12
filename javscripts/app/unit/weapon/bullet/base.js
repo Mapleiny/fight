@@ -23,10 +23,10 @@
  * @function         base             getDamage(attack)  number     单位承受attack数值的伤害
  * @function         boolean          isDied()           null       判断单位是否死亡
  */
-define(['core/display','util/object'],function ( Display , object){
+define(['core/display','util/object','util/rectangle'],function ( Display , object , Rectangle){
 	var Base = function(init){
 		var _this = this;
-		console.log(init.shape);
+
 		Display.call( _this , {
 			shape : init.shape,
 			posX : init.posX,
@@ -39,6 +39,16 @@ define(['core/display','util/object'],function ( Display , object){
 		_this.speed = init.speed||1;
 		_this.attack = init.attack||1;
 		_this.range = init.range||100;
+
+		_this.size = init.size || { width : init.shape.destWidth , height : init.shape.destHeight };
+
+		// 碰撞检测参数
+		_this.area = new Rectangle({
+			x : _this.posX - _this.size.width / 2,
+			y : _this.posY - _this.size.height / 2,
+			width : _this.size.width,
+			height : _this.size.height
+		});
 
 		_this.cheackArea = true;
 		_this.remove = false;
@@ -62,11 +72,11 @@ define(['core/display','util/object'],function ( Display , object){
 		 * 角色移动行为
 		 * 
 		 */
-		},move : function(){
+		move : function(){
 			var _this = this;
 
 			_this.posX += _this.speed;
-			_this.distance += _this.speed;
+			_this.distance += Math.abs(_this.speed);
 
 			if( _this.distance > _this.range ){
 				_this.remove = true;
@@ -105,7 +115,15 @@ define(['core/display','util/object'],function ( Display , object){
 			}else{
 
 			}
-			_this.animateList[_this.animateType].call(_this);
+
+			_this.move();
+
+			if( _this.animateType in _this.animateList ){
+				_this.animateList[_this.animateType].call(_this);
+			}else{
+				console.log( _this.name + ' doesn\' have ' + _this.animateType + ' animateType' );
+			}
+			
 		}
 	};
 

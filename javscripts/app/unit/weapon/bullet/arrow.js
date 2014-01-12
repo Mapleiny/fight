@@ -13,18 +13,20 @@
 define(['./base','util/object','core/source'],function ( Base , object , Source ){
 	
 	var Arrow = function(init){
+		var _this = this;
+
 		Base.call(this,{
-			speed : 20,
+			speed : -10,
 			attack : 1,
 			health : 1,
 			range : init.range,
 			shape : Source['arrow']['shape'],
+			size : Source['arrow']['size'],
 			posX: init.posX,
 			posY: init.posY
 		});
 
-		var _this = this;
-		_this.size = Source['arrow']['size'];
+		_this.name = 'arrow';
 
 		_this.init();
 
@@ -38,6 +40,7 @@ define(['./base','util/object','core/source'],function ( Base , object , Source 
 		init : function(){
 			var _this = this;
 			
+			//_this.setAnimateList();
 		}
 	};
 

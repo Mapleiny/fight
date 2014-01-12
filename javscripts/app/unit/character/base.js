@@ -40,7 +40,10 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 		_this.score = init.score||0;
 
 
+
 		_this.size = init.size || { width : init.shape.destWidth , height : init.shape.destHeight };
+
+		// 碰撞检测参数
 		_this.area = new Rectangle({
 			x : _this.posX - _this.size.width / 2,
 			y : _this.posY - _this.size.height / 2,

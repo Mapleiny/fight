@@ -38,6 +38,9 @@ define(['util/rectangle'],function (Rectangle){
 			height : _this.range*2
 		});
 
+		// 发出的子弹
+		_this.bullets = [];
+
 
 	};
 

@@ -50,13 +50,14 @@ define(['util/math','util/object'],function ( math , object ){
 		 * @param {Array}   typeArr 被检测碰撞类别
 		 * @param {Funtion} action 碰撞后执行的操作
 		 */
-		},setCheckRule : function( typeArr , action ){
+		},setCheckRule : function( typeArr , action , elseAction ){
 			var _this = this,
 				checkRule = _this.checkRule;
 			if( ( typeArr instanceof Array ) && ( typeArr.length > 1 ) && ( action instanceof Function ) ){
 				checkRule.push({
 					type : typeArr,
-					action : action
+					action : action,
+					elseAction : elseAction || function(){}
 				});
 			}else{
 				console.error('setCheckRule 参数有误！');
@@ -84,7 +85,9 @@ define(['util/math','util/object'],function ( math , object ){
 					for( type2Index = 0 , type2Sum = collisionList[type2].length ; type2Index < type2Sum ; ++type2Index ){
 						collisionObj2 = collisionList[type2][type2Index];
 						if( math.checkPolyIntersect( collisionObj1.obj[collisionObj1.key] , collisionObj2.obj[collisionObj2.key] ) ){
-							checkRule[i][action].call( this , collisionObj1.obj , collisionObj1.obj );
+							checkRule[i]['action'].call( this , collisionObj1.obj , collisionObj1.obj );
+						}else{
+							checkRule[i]['elseAction'].call( this , collisionObj1.obj , collisionObj1.obj );
 						}
 					}
 				}

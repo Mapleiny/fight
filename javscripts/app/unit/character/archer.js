@@ -24,36 +24,15 @@ define(['./base','unit/weapon/bow','util/object','core/source'],function ( Base 
 			weaponList : [new Bow({
 				target : _this,
 				shiftX : 0,
-				shiftY : 0
+				shiftY : 40
 			})]
 		});
 
-		_this.name = "archer";
+		_this.name = 'archer';
 
 		_this.init();
 	};
-/**
- * animateList : [{
-				name : 'attack',
-				loop : true,
-				interval : 20,
-				funcList : [function(){
-					this.data.sourceX = 0;
-					this.data.sourceY = 0;
-					return true;
-				},function(){
-					this.data.sourceX = 81;
-					this.data.sourceY = 0;
 
-					this.attack();
-					return true;
-				},function(){
-					this.data.sourceX = 162;
-					this.data.sourceY = 0;
-					return true;
-				}]
-			}]
- */
 	object.extend( Archer , Base );
 
 	var key , prototype;
@@ -76,9 +55,8 @@ define(['./base','unit/weapon/bow','util/object','core/source'],function ( Base 
 						this.shape.sourceY = 0;
 					}],
 					callBack : function(){
-						console.log('before fire');
 						_this.weapon.fire();
-					},callBackIndex : 1
+					},callBackIndex : 2
 				}];
 			_this.setAnimateList(animateList);
 		}
