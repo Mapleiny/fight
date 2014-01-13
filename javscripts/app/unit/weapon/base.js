@@ -47,6 +47,7 @@ define(['util/rectangle'],function (Rectangle){
 	Base.prototype = {
 		fire : function(){
 			var _this = this;
+			console.log('fire!');
 			if( !_this.isEmpty() ){
 				--_this.bulletSum;
 				_this.bullets.push(_this.bulletBeforeFire());

@@ -64,7 +64,7 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 
 
 		// 当前动作状态
-		_this.animateType = 'attack';
+		_this.animateType = 'move';
 
 		_this.loadWeapon();
 	};
@@ -152,6 +152,8 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 			}else{
 				
 			}
+			//console.log(_this.animateList);
+			_this.move();
 			_this.animateList[_this.animateType].call(_this);
 
 		},updataArea : function(){

@@ -769,4 +769,6 @@ define(function(){
 			}
 		}
 	}
+
+	return rule;
 });

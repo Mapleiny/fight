@@ -15,7 +15,7 @@ define(['./base','unit/weapon/bow','util/object','core/source'],function ( Base 
 
 		Base.call(this,{
 			health : 100,
-			speed : 10,
+			speed : -1,
 			score : 10,
 			posX: init.posX,
 			posY: init.posY,
@@ -53,10 +53,25 @@ define(['./base','unit/weapon/bow','util/object','core/source'],function ( Base 
 					},function(){
 						this.shape.sourceX = 162;
 						this.shape.sourceY = 0;
-					}],
-					callBack : function(){
-						_this.weapon.fire();
-					},callBackIndex : 2
+						this.attack();
+					}]
+				},{
+					name : 'move',
+					loop : true,
+					interval : 15,
+					funcList : [function(){
+						this.shape.sourceX = 0;
+						this.shape.sourceY = 0;
+					},function(){
+						this.shape.sourceX = 89;
+						this.shape.sourceY = 0;
+					},function(){
+						this.shape.sourceX = 178;
+						this.shape.sourceY = 0;
+					},function(){
+						this.shape.sourceX = 267;
+						this.shape.sourceY = 0;
+					}]
 				}];
 			_this.setAnimateList(animateList);
 		}

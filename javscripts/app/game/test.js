@@ -13,7 +13,7 @@ define(['./control'],function (Control){
 					maxHeight : canvasHeight
 				});
 			setInterval(function(){
-				console.clear();
+				//console.clear();
 				control.draw();
 			},fps);
 		}

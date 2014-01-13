@@ -26,8 +26,6 @@ define(['core/imageCvs'],function (imageCvs){
 		save = time = count = sum * interval;
 		loop = init.loop;
 		funcList = init.funcList;
-		callBack = init.callBack;
-		callBackIndex = init.callBackIndex;
 		i = 0 ;
 		return function(){
 			//console.log("time:%d,count:%d,i:%d,interval:%d,save:%d,callBackIndex:%d,loop:%s",time,count,i,interval,save,callBackIndex,loop);
@@ -36,9 +34,6 @@ define(['core/imageCvs'],function (imageCvs){
 			}
 			if( count === time ){
 				funcList[i].call(this);
-				if( i === callBackIndex ){
-					callBack.call(this);
-				}
 				time -= interval;
 				i++;
 			}
@@ -64,9 +59,7 @@ define(['core/imageCvs'],function (imageCvs){
 			animateList[list[i].name] = createAnimateFunc({
 				loop : list[i].loop || false,
 				interval : list[i].interval || 0,
-				funcList : list[i].funcList || [],
-				callBack : list[i].callBack || function(){},
-				callBackIndex : list[i].callBackIndex || 0
+				funcList : list[i].funcList || []
 			});
 		}
 		return animateList;
@@ -131,9 +124,7 @@ define(['core/imageCvs'],function (imageCvs){
 			_this.animateList[params.name] = createAnimateFunc({
 				loop : params.loop || false,
 				interval : params.interval || 0,
-				funcList : params.funcList || [],
-				callBack : params.callBack || function(){},
-				callBackIndex : params.callBackIndex || 0
+				funcList : params.funcList || []
 			});
 			return this;
 		},updataCtx : function(){
