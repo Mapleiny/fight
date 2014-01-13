@@ -52,13 +52,20 @@ define(['util/math','util/object'],function ( math , object ){
 		 */
 		},setCheckRule : function( typeArr , action , elseAction ){
 			var _this = this,
-				checkRule = _this.checkRule;
+				checkRule = _this.checkRule,
+				collisionList = _this.collisionList,
+				i , sum;
 			if( ( typeArr instanceof Array ) && ( typeArr.length > 1 ) && ( action instanceof Function ) ){
 				checkRule.push({
 					type : typeArr,
 					action : action,
 					elseAction : elseAction || function(){}
 				});
+				for( i = 0 , sum = typeArr.length ; i < sum ; ++i ){
+					if( !( typeArr[i] in collisionList ) ){
+						collisionList[typeArr[i]] = [];
+					}
+				}
 			}else{
 				console.error('setCheckRule 参数有误！');
 			}

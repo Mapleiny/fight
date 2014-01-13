@@ -71,7 +71,7 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 			}
 
 			// 碰撞检测
-			collision.checkCollision();
+			// collision.checkCollision();
 
 			return this;
 		},addUnit : function( unitObj , collisionType ){
