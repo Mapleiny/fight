@@ -1,6 +1,56 @@
 define(function(){
-	var rule = {
-		shoot1 : {
+	var unit = {};
+
+
+	unit.character = {
+		alert : {
+			init : {
+				height : 39,
+				width : 40
+			},'0' : {
+				body : {
+					shiftX : 0,
+					shiftY : 2
+				},arm : {
+					shiftX : 20,
+					shiftY : 6
+				},lHand : {
+					shiftX : 8,
+					shiftY : 14
+				},rHand : {
+					shiftX : 16,
+					shiftY : 16
+				},
+			},'1' : {
+				body : {
+					shiftX : -1,
+					shiftY : 0
+				},arm : {
+					shiftX : 19,
+					shiftY : 6
+				},lHand : {
+					shiftX : 8,
+					shiftY : 13
+				},rHand : {
+					shiftX : 16,
+					shiftY : 15
+				},
+			},'2' : {
+				body : {
+					shiftX : -1,
+					shiftY : 0
+				},arm : {
+					shiftX : 20,
+					shiftY : 5
+				},lHand : {
+					shiftX : 9,
+					shiftY : 12
+				},rHand : {
+					shiftX : 17,
+					shiftY : 13
+				},
+			}
+		},shoot1 : {
 			init : {
 				height : 50,
 				width : 44
@@ -11,9 +61,8 @@ define(function(){
 				},arm : {
 					shiftX : 18,
 					shiftY : -3
-				}
-			},
-			'1' : {
+				}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+			},'1' : {
 				body : {
 					shiftX : 0,
 					shiftY : 0
@@ -251,12 +300,12 @@ define(function(){
 		},stabTF : {
 		// 可能缺少图片
 			init : {
-				width : ,
-				height :
+				width : 0,
+				height : 0
 			},"2" : {
 				body : {
-					shiftX : ,
-					shiftY :
+					shiftX : 0,
+					shiftY : 0
 				},arm : {
 					shiftX : 26,
 					shiftY : -6
@@ -746,8 +795,8 @@ define(function(){
 				}
 			},"2" : {
 				body : {
-					shiftX : ,
-					shiftY :
+					shiftX : 0,
+					shiftY : 0
 				},arm : {
 					shiftX : 14,
 					shiftY : 3
@@ -768,7 +817,313 @@ define(function(){
 				}
 			}
 		}
+	};
+
+
+	unit.mail = {
+		'01050078' : {
+			alert : {
+				'0' : {
+					mail : {
+						shiftX : 4,
+						shiftY : 2
+					},mailArm : {
+						shiftX : 20,
+						shiftY : 6
+					}
+				},'1' : {
+					mail : {
+						shiftX : 4,
+						shiftY : 2
+					},mailArm : {
+						shiftX : 19,
+						shiftY : 5
+					}
+				},'2' : {
+					mail : {
+						shiftX : 4,
+						shiftY : 1
+					},mailArm : {
+						shiftX : 19,
+						shiftY : 5
+					}
+				}
+			},shoot1 : {
+				'0' : {
+					mail : {
+						shiftX : 9,
+						shiftY : 3
+					},mailArm : {
+						shiftX : 26,
+						shiftY : 2
+					}
+				},'1' : {
+					mail : {
+						shiftX : 9,
+						shiftY : 3
+					},mailArm : {
+						shiftX : 36,
+						shiftY : 2
+					}
+				}
+			},shoot2 : {
+				'0' : {
+					mail : {
+						shiftX : 8,
+						shiftY : 3
+					},mailArm : {
+						shiftX : 28,
+						shiftY : 5
+					}
+				},'1' : {
+					mail : {
+						shiftX : 8,
+						shiftY : 3
+					},mailArm : {
+						shiftX : 17,
+						shiftY : 3
+					}
+				},'2' : {
+					mail : {
+						shiftX : 8,
+						shiftY : 3
+					},mailArm : {
+						shiftX : 24,
+						shiftY : 6
+					}
+				},'3' : {
+					mail : {
+						shiftX : 8,
+						shiftY : 3
+					},mailArm : {
+						shiftX : 30,
+						shiftY : 7
+					}
+				},'4' : {
+					mail : {
+						shiftX : 10,
+						shiftY : 4
+					},mailArm : {
+						shiftX : 29,
+						shiftY : 5
+					}
+				}
+			},walk1 : {
+				'0' : {
+					mail : {
+						shiftX : 7,
+						shiftY : 2
+					},mailArm : {
+						shiftX : 25,
+						shiftY : 4
+					}
+				},'1' : {
+					mail : {
+						shiftX : 3,
+						shiftY : 1
+					},mailArm : {
+						shiftX : 20,
+						shiftY : 7
+					}
+				},'2' : {
+					mail : {
+						shiftX : 8,
+						shiftY : 0
+					},mailArm : {
+						shiftX : 0,
+						shiftY : 0
+					}
+				},'3' : {
+					mail : {
+						shiftX : 6,
+						shiftY : 2
+					},mailArm : {
+						shiftX : 27,
+						shiftY : 4
+					}
+				}
+			}
+		}
+	};
+
+	unit.shoes = {
+		'01072185' : {
+			shoot1 : {
+				'0' : {
+					shoes : {
+						shiftX : 19,
+						shiftY : 24
+					}
+				}
+			},shoot2 : {
+				'0' : {
+					shoes : {
+						shiftX : 12,
+						shiftY : 21
+					}
+				}
+			},walk1 : {
+				'0' : {
+					shoes : {
+						shiftX : 22,
+						shiftY : 26
+					}
+				},'1' : {
+					shoes : {
+						shiftX : 7,
+						shiftY : 18
+					}
+				},'2' : {
+					shoes : {
+						shiftX : 18,
+						shiftY : 24
+					}
+				},'3' : {
+					shoes : {
+						shiftX : 12,
+						shiftY : 19
+					}
+				}
+			}
+		}
+	};
+
+	unit.glove = {
+		'01082457' : {
+			shoot1 : {
+				'0' : {
+					lGlove : {
+						shiftX : 4,
+						shiftY : 6
+					},rGlove : {
+						shiftX : 17,
+						shiftY : 1
+					}
+				},'1' : {
+					lGlove : {
+						shiftX : 4,
+						shiftY : 6
+					},rGlove : {
+						shiftX : 31,
+						shiftY : 0
+					}
+				}
+			},walk1 : {
+				'0' : {
+					lGlove : {
+						shiftX : 4,
+						shiftY : 11
+					},rGlove : {
+						shiftX : 27,
+						shiftY : 11
+					}
+				},'1' : {
+					lGlove : {
+						shiftX : 8,
+						shiftY : 15
+					},rGlove : {
+						shiftX : 16,
+						shiftY : 14
+					}
+				},'2' : {
+					lGlove : {
+						shiftX : 5,
+						shiftY : 10
+					},rGlove : {
+						shiftX : 0,
+						shiftY : 0
+					}
+				},'3' : {
+					lGlove : {
+						shiftX : 5,
+						shiftY : 8
+					},rGlove : {
+						shiftX : 31,
+						shiftY : 11
+					}
+				}
+			}
+		}
 	}
 
-	return rule;
+	unit.weapon = {
+		'01452194' : {
+			shoot1 : {
+				'0' : {
+					weapon : {
+						shiftX : -27,
+						shiftY : -28
+					}
+				},'1' : {
+					weapon : {
+						shiftX : -22,
+						shiftY : -30
+					}
+				},'2' : {
+					weapon : {
+						shiftX : -30,
+						shiftY : -27
+					}
+				}
+			},walk1 : {
+				'0' : {
+					weapon : {
+						shiftX : -6,
+						shiftY : -15
+					}
+				},'1' : {
+					weapon : {
+						shiftX : -17,
+						shiftY : -18
+					}
+				},'2' : {
+					weapon : {
+						shiftX : -4,
+						shiftY : -16
+					}
+				},'3' : {
+					weapon : {
+						shiftX : -3,
+						shiftY : -19
+					}
+				}
+			}
+		}
+	}
+
+
+	var translate = function( role ){
+		var compare = {
+			'mail' : 'body',
+			'mailArm' : 'arm',
+			'mailArmOverHair' : 'armOverHair'
+		};
+		if( role in compare ){
+			return compare[role];
+		}else{
+			return null;
+		}
+	}
+
+
+
+	var assembl = function(){
+	};
+
+	assembl.prototype = {
+		getData : function( imageName ){
+			var info = imageName.split('.'),
+				status = info[0],
+				index = info[1],
+				role = info[2];
+			if( !( role in unit.character[status][index] ) ){
+				if( role in unit.mail['01050078'][status][index] )
+					return unit.mail['01050078'][status][index][role];
+			}else{
+				return unit.character[status][index][role];
+			}
+			
+		}
+	}
+	return assembl;
 });

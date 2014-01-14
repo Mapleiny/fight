@@ -1,4 +1,4 @@
-define(['create/drag','core/animateObj','create/canvas','util/object'],function (Drag,AnimateObj,CanvasManage,object){
+define(['create/drag','core/animateObj','create/canvas','util/object','create/assembl_rule'],function (Drag,AnimateObj,CanvasManage,object,Assembl){
 
 	var CanvasInfo = function(width,height){
 		this.name = '';
@@ -118,6 +118,8 @@ define(['create/drag','core/animateObj','create/canvas','util/object'],function 
 
 	CvsManage.prototype.updateSoruce = function( index , key , value ){
 		var _this = this;
+		console.log(_this.canvasList[_this.current]);
+		console.log( index );
 		_this.canvasList[_this.current].updata( index , key , value );
 		return this;
 	};
@@ -309,10 +311,16 @@ define(['create/drag','core/animateObj','create/canvas','util/object'],function 
 		},setCurrentSoruce:function(id){
 			this.currentSoruce = id;
 			return this;
-		},setSoruceData : function(key,value){
-			var _this = this;
-
-			_this.cvsManage.updateSoruce(_this.currentSoruce , key , value);
+		},setSoruceData : function(){
+			var _this = this,
+				key , value , obj;
+			if( arguments.length == 1 && arguments[0] instanceof Object ){
+				for( key in arguments[0] ){
+					_this.cvsManage.updateSoruce(_this.currentSoruce , key , arguments[0][key]);
+				}
+			}else if( arguments.length == 2 ){
+				_this.cvsManage.updateSoruce(_this.currentSoruce , arguments[0] , arguments[1]);
+			}
 
 			return this;
 		},setSoruce : function(){
@@ -423,7 +431,8 @@ define(['create/drag','core/animateObj','create/canvas','util/object'],function 
 				animateCanvasBtn = $('#animate-canvas'),
 				intervalData = $('#interval'),
 				compose = $('#compose'),
-				composeShow = $('#composeShow');
+				composeShow = $('#composeShow'),
+				assemblSoruce = $('#assembl-soruce');
 
 
 			var showCompose = function( src , data ){
@@ -514,6 +523,25 @@ define(['create/drag','core/animateObj','create/canvas','util/object'],function 
 						.showSoruceInfo(soruceCvsInfo);
 				
 			});
+
+			// 自动合成图片
+			var assembl = new Assembl();
+			assemblSoruce.on('click',function(){
+				var list = selectedSoruce.find('.on .unit'),
+					i , sum , data;
+				for( i = 0 , sum = list.length ; i < sum ; ++i ){
+					data = list.eq(i).data();
+					console.log(data);
+					info = assembl.getData( data.name );
+					soruceManage.setCurrentSoruce( data.id )
+						.setSoruceData({
+							posX : info.shiftX,
+							posY : info.shiftY
+						}).updateCanvas();
+				}
+			});
+
+
 
 			// 添加新画布
 			addCanvasBtn.on('click',function(){
@@ -630,8 +658,6 @@ define(['create/drag','core/animateObj','create/canvas','util/object'],function 
 				showCompose(result.src,result.data);
 
 			});
-
-
 
 
 			$(document).on('click','.dropdown-toggle',function(){
