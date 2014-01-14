@@ -63,6 +63,21 @@ define(['core/imageCvs'],function (imageCvs){
 			});
 		}
 		return animateList;
+	},flipHorizontal = function( imageData ){
+		var height = imageData.height,
+			width = imageData.width,
+			temp = Array.prototype.slice.call(imageData.data,0),
+			i , j , sum , all , begin;
+		for( i = 0 ; i < height ; ++i ){
+			begin = i * width * 4;
+			for( j = 0 , sum = width * 4 , m = sum - 4 ; j < sum ; j = j + 4 , m = m - 4 ){
+				imageData.data[j+begin] = temp[m+begin];
+				imageData.data[j+begin+1] = temp[m+begin+1];
+				imageData.data[j+begin+2] = temp[m+begin+2];
+				imageData.data[j+begin+3] = temp[m+begin+3];
+			}
+		}
+		return imageData;
 	};
 
 
@@ -73,6 +88,8 @@ define(['core/imageCvs'],function (imageCvs){
 
 		_this.posX = params.posX;
 		_this.posY = params.posY;
+
+		_this.derection = params.derection;
 
 		_this.radius = getAnimateAreaRadius(_this._edge);
 
@@ -141,7 +158,13 @@ define(['core/imageCvs'],function (imageCvs){
 			_ctx.translate(_radius,_radius);
 			_ctx.rotate(_this.angle);
 
+
 			_ctx.drawImage(shape.image,shape.sourceX,shape.sourceY,shape.sourceWidth,shape.sourceHeight,-round(shape.destWidth/2),-round(shape.destHeight/2),shape.destWidth,shape.destHeight);
+
+			//if( _this.derection == -1 ){
+				//_ctx.putImageData(flipHorizontal(_ctx.getImageData(0,0,_radius*2,_radius*2)),0,0);
+			//}
+
 			_ctx.restore();
 
 			return this;

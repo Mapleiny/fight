@@ -44,8 +44,8 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 
 		// 碰撞检测参数
 		_this.area = new Rectangle({
-			x : _this.posX - _this.size.width / 2,
-			y : _this.posY - _this.size.height / 2,
+			x : _this.posX + _this.size.shiftX,
+			y : _this.posY + _this.size.shiftY,
 			width : _this.size.width,
 			height : _this.size.height
 		});
@@ -101,8 +101,8 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 		},updataArea : function(){
 			var _this = this;
 			this.area.upadataPonint({
-				x : _this.posX - _this.size.width / 2,
-				y : _this.posY - _this.size.height / 2,
+				x : _this.posX + _this.size.shiftX,
+				y : _this.posY + _this.size.shiftY,
 				width : _this.size.width,
 				height : _this.size.height
 			});
@@ -121,8 +121,10 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 			if( _this.animateType in _this.animateList ){
 				_this.animateList[_this.animateType].call(_this);
 			}else{
-				console.log( _this.name + ' doesn\' have ' + _this.animateType + ' animateType' );
+				//console.log( _this.name + ' doesn\' have ' + _this.animateType + ' animateType' );
 			}
+
+			_this.updataArea();
 			
 		}
 	};

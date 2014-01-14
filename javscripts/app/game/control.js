@@ -26,8 +26,19 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 		init : function(){
 			var _this = this;
 			_this.addUnit( new Archer({
-				posX : 500,
-				posY : 0
+				posX : 0,
+				posY : 300,
+				speed : 0,
+				derection : -1,
+				animateType : 'sit'
+			}) , 'leftUnit' );
+
+			_this.addUnit( new Archer({
+				posX : 872,
+				posY : 300,
+				speed : 0,
+				derection : 1 , 
+				animateType : 'attack'
 			}) , 'rightUnit' );
 
 			_this.setcollisionAction();
@@ -37,12 +48,20 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 				i , sum ,
 				animateList = _this.animateList,
 				ctx = _this.ctx,
-				drawData;
+				drawData , temp;
 			_this.control();
 			
 			ctx.clearRect( 0 , 0 , _this.maxWidth , _this.maxHeight );
 			for( i = 0 , sum = animateList.length ; i < sum ; ++i ){
 				drawData = animateList[i].drawData();
+				temp = animateList[i].area.data;
+				ctx.beginPath();
+				ctx.moveTo(temp[0].x,temp[0].y);
+				ctx.lineTo(temp[1].x,temp[1].y);
+				ctx.lineTo(temp[2].x,temp[2].y);
+				ctx.lineTo(temp[3].x,temp[3].y);
+				ctx.strokeStyle="green";
+				ctx.stroke();
 				ctx.drawImage( drawData.image , drawData.sourceX , drawData.sourceY , drawData.sourceWidth , drawData.sourceHeight , drawData.destX , drawData.destY , drawData.destWidth , drawData.destHeight );
 			}
 			return _this;
@@ -71,7 +90,7 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 			}
 
 			// 碰撞检测
-			// collision.checkCollision();
+			collision.checkCollision();
 
 			return this;
 		},addUnit : function( unitObj , collisionType ){
@@ -99,26 +118,28 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 				collision = _this.collision;
 
 			// 子弹和单位之间的碰撞
-			collision.setCheckRule(['leftBullet','rightUnit'],function ( leftBullet , rightUnit ){
-				leftBullet.getDamage(1);
-				rightUnit.getDamage(leftBullet.attack);
-			});
+			// collision.setCheckRule(['leftBullet','rightUnit'],function ( leftBullet , rightUnit ){
+			// 	leftBullet.getDamage(1);
+			// 	rightUnit.getDamage(leftBullet.attack);
+
+			// 	console.log('I got heart!');
+			// });
 			collision.setCheckRule(['rightBullet','leftUnit'],function ( rightBullet , leftUnit ){
 				rightBullet.getDamage(1);
 				leftUnit.getDamage(rightBullet.attack);
 			});
 
 			// 单位进入攻击范围
-			collision.setCheckRule(['leftUnit','rightWeapon'],function ( leftUnit , rightWeapon ){
-				rightWeapon.target.animateType = 'attack';
-			},function ( leftUnit , rightWeapon ){
-				rightWeapon.target.animateType = 'move';
-			});
-			collision.setCheckRule(['rightUnit','leftWeapon'],function ( leftUnit , leftWeapon ){
-				leftWeapon.target.animateType = 'attack';
-			},function ( leftUnit , leftWeapon ){
-				rightWeapon.target.animateType = 'move';
-			});
+			// collision.setCheckRule(['leftUnit','rightWeapon'],function ( leftUnit , rightWeapon ){
+			// 	rightWeapon.target.animateType = 'attack';
+			// },function ( leftUnit , rightWeapon ){
+			// 	rightWeapon.target.animateType = 'move';
+			// });
+			// collision.setCheckRule(['rightUnit','leftWeapon'],function ( leftUnit , leftWeapon ){
+			// 	leftWeapon.target.animateType = 'attack';
+			// },function ( leftUnit , leftWeapon ){
+			// 	rightWeapon.target.animateType = 'move';
+			// });
 
 		}
 	};

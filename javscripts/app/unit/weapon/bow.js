@@ -26,7 +26,7 @@ define(['./bullet/arrow','unit/weapon/base','util/object'],function ( Arrow , Ba
 			bullet : Arrow,
 			bulletSum : Infinity,
 			spend : 20,
-			range : 500,
+			range : 900,
 			target : init.target,
 			shiftX : init.shiftX,
 			shiftY : init.shiftY

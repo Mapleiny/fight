@@ -7,7 +7,7 @@ define(function(){
 	return {
 		archer : {
 			shape : {
-				image : getImage('images/unit/hero/Archer/action/move/0.png'),
+				image : getImage('images/unit/hero/Archer/action/attack/0.png'),
 				sourceX : 0,
 				sourceY : 0,
 				sourceWidth : 81,
@@ -17,8 +17,10 @@ define(function(){
 				destWidth : 81,
 				destHeight : 99
 			},size : {
-				width : 81,
-				height : 99
+				width : 30,
+				height : 65,
+				shiftX : 55,
+				shiftY : 38
 			}
 		},arrow : {
 			shape : {
@@ -33,7 +35,9 @@ define(function(){
 				destHeight : 19
 			},size : {
 				width : 68,
-				height : 19
+				height : 19,
+				shiftX : 0,
+				shiftY : 25
 			}
 		}
 	}

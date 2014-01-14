@@ -5,13 +5,14 @@ define(['./control'],function (Control){
 		canvasHeight = canvas.height();
 	return {
 		init : function(){
-			var fps = 1000/60,
+			var fps = 1000/10,
 				control = new Control({
 					canvas : canvas,
 					ctx : ctx,
 					maxWidth : canvasWidth,
 					maxHeight : canvasHeight
 				});
+			//control.draw();
 			setInterval(function(){
 				//console.clear();
 				control.draw();

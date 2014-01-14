@@ -29,7 +29,8 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 		Display.call( _this , {
 			shape : init.shape,
 			posX : init.posX,
-			posY : init.posY
+			posY : init.posY,
+			derection : init.derection,
 		});
 
 
@@ -40,13 +41,12 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 		_this.score = init.score||0;
 
 
-
 		_this.size = init.size || { width : init.shape.destWidth , height : init.shape.destHeight };
 
 		// 碰撞检测参数
 		_this.area = new Rectangle({
-			x : _this.posX - _this.size.width / 2,
-			y : _this.posY - _this.size.height / 2,
+			x : _this.posX + _this.size.shiftX,
+			y : _this.posY + _this.size.shiftY,
 			width : _this.size.width,
 			height : _this.size.height
 		});
@@ -149,18 +149,26 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 
 			if( _this.isDied() ){
 				_this.animateType = 'destroy';
-			}else{
-				
 			}
-			//console.log(_this.animateList);
-			_this.move();
-			_this.animateList[_this.animateType].call(_this);
+			switch( _this.animateType ){
+				case 'move' : 
+					_this.move();
+				    break;
+			}
+
+			if( _this.animateType in _this.animateList ){
+				_this.animateList[_this.animateType].call(_this);
+			}
+
+			_this.updataArea();
+
+			return this;
 
 		},updataArea : function(){
 			var _this = this;
 			this.area.upadataPonint({
-				x : _this.posX - _this.size.width / 2,
-				y : _this.posY - _this.size.height / 2,
+				x : _this.posX + _this.size.shiftX,
+				y : _this.posY + _this.size.shiftY,
 				width : _this.size.width,
 				height : _this.size.height
 			});
