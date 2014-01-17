@@ -5,7 +5,7 @@ define(['./control'],function (Control){
 		canvasHeight = canvas.height();
 	return {
 		init : function(){
-			var fps = 1000/3,
+			var fps = 1000/60,
 				control = new Control({
 					canvas : canvas,
 					ctx : ctx,

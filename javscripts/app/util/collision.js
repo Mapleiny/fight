@@ -3,6 +3,7 @@ define(['util/math','util/object'],function ( math , object ){
 		var _this = this;
 		_this.collisionList = {};
 		_this.checkRule = [];
+		_this.index = 0;
 	};
 
 
@@ -17,20 +18,21 @@ define(['util/math','util/object'],function ( math , object ){
 		 */
 		push : function( param ){
 			var _this = this,
-				collisionList = _this.collisionList;
+				collisionList = _this.collisionList,
+				index = _this.index;
 			if( param && param.type && param.key && param.obj ){
-				if( param.type in collisionList ){
-					collisionList[param.type].push({
-						key : param.key,
-						obj : param.obj
-					});
-				}else{
-					collisionList[param.type] = [];
+				if( !(param.type in collisionList) ){
+					collisionList[param.type] = {};
 				}
+				collisionList[param.type][_this.index] = {
+					key : param.key,
+					obj : param.obj
+				};
+				++_this.index;
 			}else{
 				console.error('参数不正确！');
 			}
-			return this;
+			return index;
 		/**
 		 * 删除需检测对象
 		 * @param  {String} type  类别
@@ -39,8 +41,8 @@ define(['util/math','util/object'],function ( math , object ){
 		},deleteCollosion : function( type , index ){
 			var _this = this,
 				collisionList = _this.collisionList;
-			if( ( type in collisionList ) && ( index < _this.collisionList[type].length ) ){
-				_this.collisionList[type] = object.deleteArr( _this.collisionList[type] , index );
+			if( type in collisionList  ){
+				delete _this.collisionList[type][index];
 			}else{
 				console.error('type='+type+',index='+ index +'(键值不在该对象中或索引不在正确范围)');
 			}
@@ -63,7 +65,7 @@ define(['util/math','util/object'],function ( math , object ){
 				});
 				for( i = 0 , sum = typeArr.length ; i < sum ; ++i ){
 					if( !( typeArr[i] in collisionList ) ){
-						collisionList[typeArr[i]] = [];
+						collisionList[typeArr[i]] = {};
 					}
 				}
 			}else{
@@ -83,21 +85,28 @@ define(['util/math','util/object'],function ( math , object ){
 				type1Sum , type2Sum,
 				type1Index , type2Index ,
 				collisionObj1 , collisionObj2;
-
 			for( i = 0 , sum = checkRule.length ; i < sum ; ++i ){
 				type1 = checkRule[i]['type'][0];
 				type2 = checkRule[i]['type'][1];
-				for( type1Index = 0 , type1Sum = collisionList[type1].length ; type1Index < type1Sum ; ++type1Index ){
+				for( type1Index in collisionList[type1] ){
+
 					collisionObj1 = collisionList[type1][type1Index];
-					for( type2Index = 0 , type2Sum = collisionList[type2].length ; type2Index < type2Sum ; ++type2Index ){
+
+					for( type2Index in collisionList[type2] ){
 
 						collisionObj2 = collisionList[type2][type2Index];
+
 						if( math.checkPolyIntersect( collisionObj1.obj[collisionObj1.key].data , collisionObj2.obj[collisionObj2.key].data ) ){
+
 							checkRule[i]['action'].call( this , collisionObj1.obj , collisionObj1.obj );
 							
 						}else{
+
 							checkRule[i]['elseAction'].call( this , collisionObj1.obj , collisionObj1.obj );
+
 						}
+
+
 					}
 				}
 			}

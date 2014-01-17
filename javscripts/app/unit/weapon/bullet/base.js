@@ -111,9 +111,8 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 			var _this = this;
 
 			if( _this.isDied() ){
-				_this.animateType = 'destroy'
-			}else{
-
+				_this.animateType = 'destroy';
+				_this.remove = true;
 			}
 
 			_this.move();

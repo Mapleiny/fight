@@ -72,13 +72,15 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 				collision = _this.collision,
 				thisAnimate , i , sum , j , all ,
 				bullets;
+
 			for( i = 0 , sum = animateList.length ; i < sum ; ++i ){
 				thisAnimate = animateList[i];
 				thisAnimate.control();
-
 				// 如果单位需要被清除
 				if( thisAnimate.remove ){
 					_this.animateList = object.deleteArr( _this.animateList , i );
+					collision.deleteCollosion( thisAnimate._collisionIndex['type'] , thisAnimate._collisionIndex['index'] );
+					thisAnimate = null;
 				}
 
 				// 对于会有子弹输出的单位处理
@@ -100,11 +102,14 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 				animateList = _this.animateList;
 
 			if( collisionType ){
-				collision.push({
+				unitObj._collisionIndex = {
 					type : collisionType,
-					key : 'area',
-					obj : unitObj
-				});
+					index : collision.push({
+						type : collisionType,
+						key : 'area',
+						obj : unitObj
+					})
+				}
 			}else{
 				console.error('no collisionType set!');
 			}
@@ -128,7 +133,6 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 			collision.setCheckRule(['rightBullet','leftUnit'],function ( rightBullet , leftUnit ){
 				rightBullet.getDamage(1);
 				leftUnit.getDamage(rightBullet.attack);
-				console.log(rightBullet);
 			});
 
 			// 单位进入攻击范围
