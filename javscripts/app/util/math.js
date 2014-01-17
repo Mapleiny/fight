@@ -5,9 +5,9 @@ define(function(){
 			poly2 = poly2.slice(0);
 			var len1 = poly1.length,
 				len2 = poly2.length,
-				i , j
+				i , j ,
 				currentPoint, nextPoint, 
-				min1, max1, min2, max2, temp ,overlap ;
+				min1, max1, min2, max2, temp ,overlap ,
 				cx,cy,
 
 				k = 0;
@@ -18,20 +18,20 @@ define(function(){
 					currentPoint = poly1[i];
 					nextPoint = poly1[ (i+1)%len1 ];
 					
-					cx = currentPoint[1] - nextPoint[1];
-					cy = nextPoint[0] - currentPoint[0];
+					cx = currentPoint.x - nextPoint.x;
+					cy = nextPoint.y - currentPoint.y;
 
 
-					min1 = max1 = poly1[0][0] * cx + poly1[0][1] * cy;		
+					min1 = max1 = poly1[0].y * cx + poly1[0].x * cy;		
 					for( j = 1; j < len1 ; j++ ){			
-						temp = poly1[j][0] * cx + poly1[j][1] * cy;
+						temp = poly1[j].y * cx + poly1[j].x * cy;
 						if(temp > max1) max1 = temp;
 						else if(temp < min1) min1 = temp;
 					}
 					
-					min2 = max2 = poly2[0][0] * cx + poly2[0][1] * cy;		
+					min2 = max2 = poly2[0].y * cx + poly2[0].x * cy;		
 					for(j = 1; j < len2; j++){
-						temp = poly2[j][0] * cx + poly2[j][1] * cy;
+						temp = poly2[j].y * cx + poly2[j].x * cy;
 						if(temp > max2) max2 = temp;
 						else if(temp < min2) min2 = temp;
 					}

@@ -16,10 +16,12 @@ define(['util/object','util/polygon'],function (object,Polygon){
 
 	Rectangle.prototype.upadataPonint = function(init){
 		this.updata(createPoints(init.x,init.y,init.width,init.height));
+		return this;
 	};
 
 	Rectangle.prototype.rotate = function(deg,point){
 		this.rotateDegAtPoint(deg,point);
+		return this;
 	};
 
 	return Rectangle;

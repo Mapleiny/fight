@@ -89,12 +89,12 @@ define(['util/math','util/object'],function ( math , object ){
 				type2 = checkRule[i]['type'][1];
 				for( type1Index = 0 , type1Sum = collisionList[type1].length ; type1Index < type1Sum ; ++type1Index ){
 					collisionObj1 = collisionList[type1][type1Index];
-					//console.log(collisionList);
 					for( type2Index = 0 , type2Sum = collisionList[type2].length ; type2Index < type2Sum ; ++type2Index ){
 
 						collisionObj2 = collisionList[type2][type2Index];
-						if( math.checkPolyIntersect( collisionObj1.obj[collisionObj1.key] , collisionObj2.obj[collisionObj2.key] ) ){
+						if( math.checkPolyIntersect( collisionObj1.obj[collisionObj1.key].data , collisionObj2.obj[collisionObj2.key].data ) ){
 							checkRule[i]['action'].call( this , collisionObj1.obj , collisionObj1.obj );
+							
 						}else{
 							checkRule[i]['elseAction'].call( this , collisionObj1.obj , collisionObj1.obj );
 						}

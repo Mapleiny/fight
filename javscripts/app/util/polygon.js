@@ -74,32 +74,35 @@ define(['util/math'],function (math){
 			return this.scale;
 		},updata : function(data){
 			this.data = this.sortPoints(data);
+			return this;
 		},sortPoints : function(points) {
-			points.sort(function(a, b) { return a.y - b.y })
-			var top = points[0], bottom = points.pop()
+			points.sort(function(a, b) { return a.y - b.y });
+			var top = points[0], bottom = points.pop();
 			var leftPoints = [], rightPoints = [],
 				s = (bottom.x - top.x) / (bottom.y - top.y),
-				left, right
+				left, right;
 			if (top.x < bottom.x) {
-				left = top.x
-				right = bottom.x
+				left = top.x;
+				right = bottom.x;
 			} else {
-				left = bottom.x
-				right = top.x
+				left = bottom.x;
+				right = top.x;
 			}
 			for (var i = 1, n = points.length; i < n; i++) {
 				var p = points[i]
 				if (p.x <= left) leftPoints.push(p)
-				else if (p.x >= right) rightPoints.push(p)
-				else {
-					if (p.x < (p.y - top.y) * s + top.x) leftPoints.push(p)
-					else rightPoints.push(p)
+				else if(p.x >= right){
+					rightPoints.push(p);
+				}else{
+					if (p.x < (p.y - top.y) * s + top.x) {
+						leftPoints.push(p);
+					}else{
+						rightPoints.push(p);
+					}
 				}		
 			}
-			points = [].concat(top, rightPoints, bottom, leftPoints.reverse())
-			points.top = 0
-			points.bottom = rightPoints.length + 1
-			return points
+			points = [].concat(top, rightPoints, bottom, leftPoints.reverse());
+			return points;
 		}
 	};
 

@@ -25,6 +25,8 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 	GameControl.prototype = {
 		init : function(){
 			var _this = this;
+			_this.setcollisionAction();
+
 			_this.addUnit( new Archer({
 				posX : 0,
 				posY : 300,
@@ -41,7 +43,6 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 				animateType : 'attack'
 			}) , 'rightUnit' );
 
-			_this.setcollisionAction();
 			return this;
 		},draw : function(){
 			var _this = this,
@@ -127,6 +128,7 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 			collision.setCheckRule(['rightBullet','leftUnit'],function ( rightBullet , leftUnit ){
 				rightBullet.getDamage(1);
 				leftUnit.getDamage(rightBullet.attack);
+				console.log(rightBullet);
 			});
 
 			// 单位进入攻击范围
