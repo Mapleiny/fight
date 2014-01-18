@@ -38,6 +38,11 @@ define(['core/display','util/object','util/rectangle','unit/base'],function ( Di
 		// 当前武器
 		_this.weapon = null;
 
+		// 运动方向
+		_this.derection = init.derection || 1;
+
+		_this.speed *= _this.derection;
+
 		// 重写攻击方法
 		delete _this.attack;
 
@@ -52,10 +57,20 @@ define(['core/display','util/object','util/rectangle','unit/base'],function ( Di
 
 	prototype = {
 		/**
+		 * 角色移动行为
+		 * 
+		 */
+		move : function(){
+			var _this = this;
+
+			_this.posX += _this.speed;
+
+			return this;
+		/**
 		 * 角色攻击行为
 		 * 
 		 */
-		attack : function(){
+		},attack : function(){
 			var _this = this ,
 				i , sum , 
 				weapon = _this.weapon;

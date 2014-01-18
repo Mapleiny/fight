@@ -97,6 +97,9 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 				width : _this.size.width,
 				height : _this.size.height
 			});
+			if( _this.weapon ){
+				_this.weapon.updataArea();
+			}
 			return this;
 		},control : function(){
 			var _this = this;

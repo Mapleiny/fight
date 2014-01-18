@@ -17,10 +17,24 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 		_this.maxWidth = init.maxWidth;
 		_this.maxHeight = init.maxHeight;
 
+		_this.depend = {};
+
 		_this.init();
 	};
 
-
+	var drawR = function(ctx,points){
+		var i , sum ;
+		for( i = 0 , sum = points.length ; i < sum ; ++i ){
+			ctx.beginPath();
+			ctx.moveTo(points[0].x,points[0].y);
+			ctx.lineTo(points[1].x,points[1].y);
+			ctx.lineTo(points[2].x,points[2].y);
+			ctx.lineTo(points[3].x,points[3].y);
+			ctx.lineTo(points[0].x,points[0].y);
+			ctx.strokeStyle="green";
+			ctx.stroke();
+		}
+	};
 
 	GameControl.prototype = {
 		init : function(){
@@ -31,7 +45,7 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 				posX : 0,
 				posY : 300,
 				speed : 0,
-				derection : -1,
+				derection : 1,
 				animateType : 'sit'
 			}) , 'leftUnit' );
 
@@ -39,9 +53,9 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 				posX : 872,
 				posY : 300,
 				speed : 0,
-				derection : 1 , 
+				derection : -1 , 
 				animateType : 'attack'
-			}) , 'rightUnit' );
+			}) , 'rightUnit' , 'rightWeapon' );
 
 			return this;
 		},draw : function(){
@@ -49,20 +63,20 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 				i , sum ,
 				animateList = _this.animateList,
 				ctx = _this.ctx,
-				drawData , temp;
+				drawData ;
 			_this.control();
 			
 			ctx.clearRect( 0 , 0 , _this.maxWidth , _this.maxHeight );
 			for( i = 0 , sum = animateList.length ; i < sum ; ++i ){
+
 				drawData = animateList[i].drawData();
-				temp = animateList[i].area.data;
-				ctx.beginPath();
-				ctx.moveTo(temp[0].x,temp[0].y);
-				ctx.lineTo(temp[1].x,temp[1].y);
-				ctx.lineTo(temp[2].x,temp[2].y);
-				ctx.lineTo(temp[3].x,temp[3].y);
-				ctx.strokeStyle="green";
-				ctx.stroke();
+
+				drawR(ctx,animateList[i].area.data);
+
+				if( 'weapon' in animateList[i] ){
+					drawR(ctx,animateList[i].weapon.area.data);
+				}
+				
 				ctx.drawImage( drawData.image , drawData.sourceX , drawData.sourceY , drawData.sourceWidth , drawData.sourceHeight , drawData.destX , drawData.destY , drawData.destWidth , drawData.destHeight );
 			}
 			return _this;
@@ -85,6 +99,9 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 				if( thisAnimate.remove ){
 					_this.animateList = object.deleteArr( _this.animateList , i );
 					collision.deleteCollosion( thisAnimate._collisionIndex['type'] , thisAnimate._collisionIndex['index'] );
+					if( thisAnimate instanceof unitBase && unitObj.weapon ){
+						collision.deleteCollosion( thisAnimate.weapon._collisionIndex['type'] , thisAnimate.weapon._collisionIndex['index'] );
+					}
 					thisAnimate = null;
 				}
 
@@ -101,7 +118,7 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 			collision.checkCollision();
 
 			return this;
-		},addUnit : function( unitObj , collisionType ){
+		},addUnit : function( unitObj , collisionType , relyType ){
 			var _this = this,
 				collision = _this.collision,
 				animateList = _this.animateList;
@@ -114,6 +131,16 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 						key : 'area',
 						obj : unitObj
 					})
+				}
+				if( unitObj instanceof unitBase && relyType && unitObj.weapon ){
+					unitObj.weapon._collisionIndex = {
+						type : relyType,
+						index : collision.push({
+							type : relyType,
+							key : 'area',
+							obj : unitObj.weapon
+						})
+					}
 				}
 			}else{
 				console.error('no collisionType set!');
@@ -141,16 +168,16 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 			});
 
 			// 单位进入攻击范围
-			// collision.setCheckRule(['leftUnit','rightWeapon'],function ( leftUnit , rightWeapon ){
-			// 	rightWeapon.target.animateType = 'attack';
-			// },function ( leftUnit , rightWeapon ){
-			// 	rightWeapon.target.animateType = 'move';
-			// });
-			// collision.setCheckRule(['rightUnit','leftWeapon'],function ( leftUnit , leftWeapon ){
-			// 	leftWeapon.target.animateType = 'attack';
-			// },function ( leftUnit , leftWeapon ){
-			// 	rightWeapon.target.animateType = 'move';
-			// });
+			collision.setCheckRule(['leftUnit','rightWeapon'],function ( leftUnit , rightWeapon ){
+				rightWeapon.target.animateType = 'attack';
+			},function ( leftUnit , rightWeapon ){
+				rightWeapon.target.animateType = 'move';
+			});
+			collision.setCheckRule(['rightUnit','leftWeapon'],function ( leftUnit , leftWeapon ){
+				leftWeapon.target.animateType = 'attack';
+			},function ( leftUnit , leftWeapon ){
+				rightWeapon.target.animateType = 'move';
+			});
 
 		}
 	};

@@ -32,10 +32,10 @@ define(['util/rectangle'],function (Rectangle){
 		_this.shiftY = init.shiftY || 0;
 
 		_this.area = new Rectangle({
-			x : _this.target.posX + _this.shiftX - _this.range,
-			y : _this.target.posY + _this.shiftY - _this.range,
-			width : _this.range*2,
-			height : _this.range*2
+			x : _this.target.posX  - _this.range + 50,
+			y : _this.target.posY + _this.shiftY + 25,
+			width : _this.range,
+			height : 19
 		});
 
 		// 发出的子弹
@@ -92,10 +92,10 @@ define(['util/rectangle'],function (Rectangle){
 		},updataArea : function(){
 			var _this = this;
 			_this.area.upadataPonint({
-				x : _this.target.posX + _this.shiftX - _this.range,
-				y : _this.target.posY + _this.shiftY - _this.range,
-				width : _this.range*2,
-				height : _this.range*2
+				x : _this.target.posX - _this.range + 60,
+				y : _this.target.posY + _this.shiftY + 25,
+				width : _this.range,
+				height : 19
 			});
 			return this;
 		}

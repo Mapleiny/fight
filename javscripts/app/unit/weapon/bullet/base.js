@@ -28,7 +28,9 @@ define(['core/display','util/object','util/rectangle','unit/base'],function ( Di
 		var _this = this;
 
 		Base.call( _this , object.filter(init,['shape','posX','posY','health','speed','attack','size']) );
-		_this.distance = init.distance || 100;
+
+		_this.distance = _this.size.width;
+		_this.range = init.range;
 
 	};
 
