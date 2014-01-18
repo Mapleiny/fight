@@ -98,11 +98,11 @@ define(['util/math','util/object'],function ( math , object ){
 
 						if( math.checkPolyIntersect( collisionObj1.obj[collisionObj1.key].data , collisionObj2.obj[collisionObj2.key].data ) ){
 
-							checkRule[i]['action'].call( this , collisionObj1.obj , collisionObj1.obj );
+							checkRule[i]['action'].call( this , collisionObj1.obj , collisionObj2.obj );
 							
 						}else{
 
-							checkRule[i]['elseAction'].call( this , collisionObj1.obj , collisionObj1.obj );
+							checkRule[i]['elseAction'].call( this , collisionObj1.obj , collisionObj2.obj );
 
 						}
 

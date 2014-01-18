@@ -22,54 +22,31 @@
  * @function       base               getDamage(attack)  number     单位承受attack数值的伤害
  * @function       boolean            isDied()           null       判断单位是否死亡
  */
-define(['core/display','util/object','util/rectangle'],function ( Display , object , Rectangle){
-	var Base = function(init){
+define(['core/display','util/object','util/rectangle','unit/base'],function ( Display , object , Rectangle , Base){
+
+	var CharacterBase = function( init ){
 		var _this = this;
 
-		Display.call( _this , {
-			shape : init.shape,
-			posX : init.posX,
-			posY : init.posY,
-			derection : init.derection,
-		});
+		Base.call( _this , object.filter(init,['shape','posX','posY','health','speed','attack','size']) );
 
-
-		// 单位的基本信息
-		// 生命值、移动速度、消灭得分、
-		_this.health = init.health||1;
-		_this.speed = init.speed||1;
+		// 消灭得分
 		_this.score = init.score||0;
 
-
-		_this.size = init.size || { width : init.shape.destWidth , height : init.shape.destHeight };
-
-		// 碰撞检测参数
-		_this.area = new Rectangle({
-			x : _this.posX + _this.size.shiftX,
-			y : _this.posY + _this.size.shiftY,
-			width : _this.size.width,
-			height : _this.size.height
-		});
-
-		_this.cheackArea = true;
-		_this.remove = false;
-
-		// 单位的武器库以及当前所用武器
+		// 武器列表
 		_this.weaponList = init.weaponList||[];
+
+		// 当前武器
 		_this.weapon = null;
 
+		// 重写攻击方法
+		delete _this.attack;
 
-		// 动画集合
-		_this.animateList = {};
-
-
-		// 当前动作状态
-		_this.animateType = 'move';
-
+		// 初始化武器
 		_this.loadWeapon();
+
 	};
 
-	object.extend( Base , Display );
+	object.extend( CharacterBase , Base );
 
 	var prototype,key;
 
@@ -92,26 +69,6 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 
 			return this;
 		/**
-		 * 角色移动行为
-		 * 
-		 */
-		},move : function(){
-			var _this = this;
-
-			_this.posX += _this.speed;
-
-			return this;
-		/**
-		 * 角色收到伤害行为
-		 * @param  {number} attack 伤害数值
-		 * 
-		 */
-		},getDamage : function( attack ){
-			var _this = this;
-			console.log(_this.name + ' get attack cost '+attack);
-			_this.health -= attack;
-			return this;
-		/**
 		 * 装备武器
 		 * 
 		 */
@@ -129,12 +86,6 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 			
 			return this;
 		/**
-		 * 判断角色是否死亡
-		 * 
-		 */
-		},isDied : function(){
-			return this.health <= 0;
-		/**
 		 * 添加新武器
 		 * @param {object} weaponObj 武器对象
 		 */
@@ -144,41 +95,12 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 			_this.loadWeapon();
 
 			return this;
-		},control : function(){
-			var _this = this;
-
-			if( _this.isDied() ){
-				_this.animateType = 'destroy';
-			}
-			switch( _this.animateType ){
-				case 'move' : 
-					_this.move();
-				    break;
-			}
-
-			if( _this.animateType in _this.animateList ){
-				_this.animateList[_this.animateType].call(_this);
-			}
-
-			_this.updataArea();
-
-			return this;
-
-		},updataArea : function(){
-			var _this = this;
-			this.area.upadataPonint({
-				x : _this.posX + _this.size.shiftX,
-				y : _this.posY + _this.size.shiftY,
-				width : _this.size.width,
-				height : _this.size.height
-			});
-			return this;
 		}
 	};
 
 	for( key in prototype ){
-		Base.prototype[key] = prototype[key];
+		CharacterBase.prototype[key] = prototype[key];
 	}
 
-	return Base;
+	return CharacterBase;
 });

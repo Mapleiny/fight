@@ -72,10 +72,15 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 				collision = _this.collision,
 				thisAnimate , i , sum , j , all ,
 				bullets;
+			
+
 
 			for( i = 0 , sum = animateList.length ; i < sum ; ++i ){
 				thisAnimate = animateList[i];
 				thisAnimate.control();
+
+
+
 				// 如果单位需要被清除
 				if( thisAnimate.remove ){
 					_this.animateList = object.deleteArr( _this.animateList , i );

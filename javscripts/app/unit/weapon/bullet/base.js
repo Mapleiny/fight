@@ -23,53 +23,22 @@
  * @function         base             getDamage(attack)  number     单位承受attack数值的伤害
  * @function         boolean          isDied()           null       判断单位是否死亡
  */
-define(['core/display','util/object','util/rectangle'],function ( Display , object , Rectangle){
-	var Base = function(init){
+define(['core/display','util/object','util/rectangle','unit/base'],function ( Display , object , Rectangle , Base){
+	var BulletBase = function(init){
 		var _this = this;
 
-		Display.call( _this , {
-			shape : init.shape,
-			posX : init.posX,
-			posY : init.posY
-		});
-
-		// 单位的基本信息
-		// 生命值、移动速度、伤害
-		_this.health = init.health||1;
-		_this.speed = init.speed||1;
-		_this.attack = init.attack||1;
-		_this.range = init.range||100;
-
-		_this.size = init.size || { width : init.shape.destWidth , height : init.shape.destHeight };
-
-		// 碰撞检测参数
-		_this.area = new Rectangle({
-			x : _this.posX + _this.size.shiftX,
-			y : _this.posY + _this.size.shiftY,
-			width : _this.size.width,
-			height : _this.size.height
-		});
-
-		_this.cheackArea = true;
-		_this.remove = false;
-
-		_this.distance = 0;
-
-
-		_this.animateList = {};
-
-		// 当前动作状态
-		_this.animateType = 'move';
+		Base.call( _this , object.filter(init,['shape','posX','posY','health','speed','attack','size']) );
+		_this.distance = init.distance || 100;
 
 	};
 
-	object.extend( Base , Display );
+	object.extend( BulletBase , Base );
 
 	var prototype,key;
 
 	prototype = {
 		/**
-		 * 角色移动行为
+		 * 子弹移动行为
 		 * 
 		 */
 		move : function(){
@@ -83,54 +52,12 @@ define(['core/display','util/object','util/rectangle'],function ( Display , obje
 			}
 
 			return this;
-		/**
-		 * 角色收到伤害行为
-		 * @param  {number} attack 伤害数值
-		 * 
-		 */
-		},getDamage : function( attack ){
-			var _this = this;
-			_this.health -= attack;
-			return this;
-		/**
-		 * 判断角色是否死亡
-		 * 
-		 */
-		},isDied : function(){
-			return this.health <= 0;
-		},updataArea : function(){
-			var _this = this;
-			this.area.upadataPonint({
-				x : _this.posX + _this.size.shiftX,
-				y : _this.posY + _this.size.shiftY,
-				width : _this.size.width,
-				height : _this.size.height
-			});
-			return this;
-		},control : function(){
-			var _this = this;
-
-			if( _this.isDied() ){
-				_this.animateType = 'destroy';
-				_this.remove = true;
-			}
-
-			_this.move();
-
-			if( _this.animateType in _this.animateList ){
-				_this.animateList[_this.animateType].call(_this);
-			}else{
-				//console.log( _this.name + ' doesn\' have ' + _this.animateType + ' animateType' );
-			}
-
-			_this.updataArea();
-			
 		}
 	};
 
 	for( key in prototype ){
-		Base.prototype[key] = prototype[key];
+		BulletBase.prototype[key] = prototype[key];
 	}
 
-	return Base;
+	return BulletBase;
 });

@@ -16,6 +16,18 @@ define(function(){
 			}else{
 				return arr.slice( 0 , index ).concat( arr.slice( index + 1 , arr.length ) );
 			}
+		},filter : function( obj , keyArray ){
+			var i , sum , key , 
+				resultObj = {};
+			if( keyArray instanceof Array ){
+				for( i = 0 , sum = keyArray.length ; i < sum ; ++i ){
+					key = keyArray[i];
+					if( key in obj ){
+						resultObj[key] = obj[key];
+					}
+				}
+			}
+			return resultObj;
 		}
 	};
 });
