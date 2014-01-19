@@ -61,7 +61,7 @@ define(function(){
 				},arm : {
 					shiftX : 18,
 					shiftY : -3
-				}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+				}
 			},'1' : {
 				body : {
 					shiftX : 0,

@@ -68,7 +68,7 @@ define(['create/drag','core/animateObj','create/canvas','util/object','create/as
 		_this.canvasList[_this.current].soruce[id] = new AnimateObj({
 			'posX' : 0, // 替代 destX 来改变位置
 			'posY' : 0, // 替代 destY 来改变位置
-			'data' : {
+			'shape' : {
 				'image' : image,
 				'sourceX' : 0,
 				'sourceY' : 0,

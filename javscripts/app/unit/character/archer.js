@@ -31,7 +31,7 @@ define(['./base','unit/weapon/bow','util/object','core/source'],function ( Base 
 
 		_this.name = 'archer';
 
-		_this.init(init.animateType);
+		_this.init();
 	};
 
 	object.extend( Archer , Base );
@@ -39,7 +39,7 @@ define(['./base','unit/weapon/bow','util/object','core/source'],function ( Base 
 	var key , prototype;
 
 	prototype = {
-		init : function(type){
+		init : function(){
 			var _this = this,
 				animateList = [{
 					name : 'attack',
@@ -75,7 +75,6 @@ define(['./base','unit/weapon/bow','util/object','core/source'],function ( Base 
 					}]
 				}];
 			_this.setAnimateList(animateList);
-			_this.animateType = type;
 		}
 	};
 

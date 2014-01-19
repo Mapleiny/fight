@@ -74,11 +74,15 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 
 				drawR(ctx,animateList[i].area.data);
 
+				// debug↓
 				if( 'weapon' in animateList[i] ){
 					drawR(ctx,animateList[i].weapon.area.data);
 				}
+				// debug↑
 				
-				ctx.drawImage( drawData.image , drawData.sourceX , drawData.sourceY , drawData.sourceWidth , drawData.sourceHeight , drawData.destX , drawData.destY , drawData.destWidth , drawData.destHeight );
+				if( drawData ){
+					ctx.drawImage( drawData.image , drawData.sourceX , drawData.sourceY , drawData.sourceWidth , drawData.sourceHeight , drawData.destX , drawData.destY , drawData.destWidth , drawData.destHeight );
+				}
 			}
 			return _this;
 		},control : function(){

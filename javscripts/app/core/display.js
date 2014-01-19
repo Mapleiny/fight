@@ -89,7 +89,7 @@ define(['core/imageCvs'],function (imageCvs){
 		_this.posX = params.posX;
 		_this.posY = params.posY;
 
-		_this.derection = params.derection;
+		//_this.derection = params.derection;
 
 		_this.radius = getAnimateAreaRadius(_this._edge);
 

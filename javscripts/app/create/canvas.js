@@ -36,7 +36,8 @@ define(function(){
 			_ctx.clearRect(0,0,_this.width,_this.height);
 
 			for( i = 0 , sum = data.length ; i < sum ; ++i ){
-				_ctx.drawImage(data[i].image , data[i].sourceX , data[i].sourceY , data[i].sourceWidth , data[i].sourceHeight , data[i].destX , data[i].destY , data[i].destWidth , data[i].destHeight);
+				console.log(data[i]);
+				_ctx.drawImage( data[i].image , data[i].sourceX , data[i].sourceY , data[i].sourceWidth , data[i].sourceHeight , data[i].destX , data[i].destY , data[i].destWidth , data[i].destHeight);
 			}
 			return this;
 		}
