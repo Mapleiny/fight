@@ -92,7 +92,7 @@ define(['util/rectangle'],function (Rectangle){
 		},updataArea : function(){
 			var _this = this;
 			_this.area.upadataPonint({
-				x : _this.target.posX - _this.range + 60,
+				x : _this.target.posX - _this.range + 70,
 				y : _this.target.posY + _this.shiftY + 25,
 				width : _this.range,
 				height : 19

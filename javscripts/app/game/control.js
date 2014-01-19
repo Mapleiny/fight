@@ -46,14 +46,15 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 				posY : 300,
 				speed : 0,
 				derection : 1,
+				health : 1,
 				animateType : 'sit'
-			}) , 'leftUnit' );
+			}) , 'leftUnit' , 'leftWeapon');
 
 			_this.addUnit( new Archer({
 				posX : 872,
 				posY : 300,
 				speed : 0,
-				derection : -1 , 
+				derection : -1 ,
 				animateType : 'attack'
 			}) , 'rightUnit' , 'rightWeapon' );
 
@@ -99,7 +100,7 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 				if( thisAnimate.remove ){
 					_this.animateList = object.deleteArr( _this.animateList , i );
 					collision.deleteCollosion( thisAnimate._collisionIndex['type'] , thisAnimate._collisionIndex['index'] );
-					if( thisAnimate instanceof unitBase && unitObj.weapon ){
+					if( thisAnimate instanceof unitBase && thisAnimate.weapon ){
 						collision.deleteCollosion( thisAnimate.weapon._collisionIndex['type'] , thisAnimate.weapon._collisionIndex['index'] );
 					}
 					thisAnimate = null;
@@ -169,15 +170,23 @@ define(['util/collision','unit/character/archer','util/object','unit/character/b
 
 			// 单位进入攻击范围
 			collision.setCheckRule(['leftUnit','rightWeapon'],function ( leftUnit , rightWeapon ){
-				rightWeapon.target.animateType = 'attack';
+				if( rightWeapon ){
+					rightWeapon.target.animateType = 'attack';
+				}
 			},function ( leftUnit , rightWeapon ){
-				rightWeapon.target.animateType = 'move';
-			});
-			collision.setCheckRule(['rightUnit','leftWeapon'],function ( leftUnit , leftWeapon ){
-				leftWeapon.target.animateType = 'attack';
+				if( rightWeapon ){
+					rightWeapon.target.animateType = 'move';
+				}
+			},false);
+			collision.setCheckRule(['rightUnit','leftWeapon'],function ( rightUnit , leftWeapon ){
+				if( leftWeapon ){
+					leftWeapon.target.animateType = 'attack';
+				}
 			},function ( leftUnit , leftWeapon ){
-				rightWeapon.target.animateType = 'move';
-			});
+				if( leftWeapon ){
+					leftWeapon.target.animateType = 'move';
+				}
+			},false);
 
 		}
 	};

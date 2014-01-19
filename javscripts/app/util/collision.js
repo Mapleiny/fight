@@ -52,7 +52,7 @@ define(['util/math','util/object'],function ( math , object ){
 		 * @param {Array}   typeArr 被检测碰撞类别
 		 * @param {Funtion} action 碰撞后执行的操作
 		 */
-		},setCheckRule : function( typeArr , action , elseAction ){
+		},setCheckRule : function( typeArr , action , elseAction , require ){
 			var _this = this,
 				checkRule = _this.checkRule,
 				collisionList = _this.collisionList,
@@ -61,7 +61,8 @@ define(['util/math','util/object'],function ( math , object ){
 				checkRule.push({
 					type : typeArr,
 					action : action,
-					elseAction : elseAction || function(){}
+					elseAction : elseAction || function(){},
+					require : require === undefined ? true : require
 				});
 				for( i = 0 , sum = typeArr.length ; i < sum ; ++i ){
 					if( !( typeArr[i] in collisionList ) ){
@@ -84,30 +85,42 @@ define(['util/math','util/object'],function ( math , object ){
 				type1 , type2,
 				type1Sum , type2Sum,
 				type1Index , type2Index ,
-				collisionObj1 , collisionObj2;
+				collisionObj1 , collisionObj2 ,
+				key , require;
 			for( i = 0 , sum = checkRule.length ; i < sum ; ++i ){
 				type1 = checkRule[i]['type'][0];
 				type2 = checkRule[i]['type'][1];
-				for( type1Index in collisionList[type1] ){
+				require = checkRule[i]['require'];
 
-					collisionObj1 = collisionList[type1][type1Index];
+				if( !object.isEmpty(collisionList[type1]) && !object.isEmpty(collisionList[type2]) ){
+					for( type1Index in collisionList[type1] ){
 
-					for( type2Index in collisionList[type2] ){
+						collisionObj1 = collisionList[type1][type1Index];
 
-						collisionObj2 = collisionList[type2][type2Index];
+						for( type2Index in collisionList[type2] ){
 
-						if( math.checkPolyIntersect( collisionObj1.obj[collisionObj1.key].data , collisionObj2.obj[collisionObj2.key].data ) ){
+							collisionObj2 = collisionList[type2][type2Index];
 
-							checkRule[i]['action'].call( this , collisionObj1.obj , collisionObj2.obj );
-							
-						}else{
-
-							checkRule[i]['elseAction'].call( this , collisionObj1.obj , collisionObj2.obj );
-
+							if( math.checkPolyIntersect( collisionObj1.obj[collisionObj1.key].data , collisionObj2.obj[collisionObj2.key].data ) ){
+								checkRule[i]['action'].call( this , collisionObj1.obj , collisionObj2.obj );
+							}else{
+								checkRule[i]['elseAction'].call( this , collisionObj1.obj , collisionObj2.obj );
+							}
 						}
-
-
 					}
+				}else if( !require ){
+					if( !object.isEmpty(collisionList[type1]) ){
+						for( key in collisionList[type1] ){
+							collisionObj2 = collisionList[type1][key];
+							checkRule[i]['elseAction'].call( this , collisionObj2.obj , null );
+						}
+					}else if( !object.isEmpty(collisionList[type2]) ){
+						for( key in collisionList[type2] ){
+							collisionObj2 = collisionList[type2][key];
+							checkRule[i]['elseAction'].call( this , null , collisionObj2.obj );
+						}
+					}
+					
 				}
 			}
 			return this;

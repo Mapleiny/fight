@@ -15,7 +15,7 @@ define(['./base','unit/weapon/bow','util/object','core/source'],function ( Base 
 
 		Base.call(this,{
 			derection : init.derection,
-			health : 10,
+			health : init.health||10,
 			speed : init.speed,
 			score : 10,
 			posX: init.posX,
