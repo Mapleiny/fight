@@ -1,9 +1,10 @@
 define(function(){
 	return {
-		info : {
+		'info' : {
 			'name' : '00002000.img',
 			'src' : ''
-		},data : {
+		},
+		'data' : {
 			'alert.0.arm.png': {
 				'x': '0',
 				'y': '0',
