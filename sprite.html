@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="stylesheets/lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/tools/assembl_image/index.css">
+</head>
+<body>
+<div class="container">
+	<h1 class="text-center">图片Sprite</h1>
+	<div class="row">
+		<div class="col-md-3">
+			<div id="soruce" class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">资源列表</h3>
+				</div>
+				<div class="panel-body">
+					<p class="text-center" style="color:#ccc;">将图片文件拖拽到此处</p>
+					<div id="data-list">
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9">
+			<div id="display" class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						画布<a href="javascript:;" id="create" class="btn btn-success btn-xs pull-right">生成</a>
+					</h3>
+				</div>
+				<div class="panel-body">
+					<img src="" id="output-src">
+				</div>
+			</div>
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						解析参数
+					</h3>
+				</div>
+				<div class="panel-body">
+					<textarea id="code" class="form-control"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="javscripts/require.js" data-main="javscripts/tool/assembl_image/sprite.js"></script>

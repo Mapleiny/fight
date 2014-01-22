@@ -7,8 +7,6 @@ require.config({
 });
 
 
-require(['create/assembl','jQuery'],function (assembl){
-    //console.log(test);
-    assembl.init();
-
+require(['create/sprite','jQuery'] , function ( Sprite ){
+	Sprite.init();
 });
