@@ -1,4 +1,4 @@
-define(['./control'],function (Control){
+define(['./fight.control'],function (Control){
 	var canvas = $('#canvas'),
 		ctx = canvas.get(0).getContext('2d'),
 		canvasWidth = canvas.width(),

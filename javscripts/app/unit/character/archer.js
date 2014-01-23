@@ -74,7 +74,7 @@ define(['./base','unit/weapon/bow','util/object','core/source'],function ( Base 
 						this.shape.sourceY = 0;
 					}]
 				}];
-			_this.setAnimateList(animateList);
+			_this.addAnimateList(animateList);
 		}
 	};
 

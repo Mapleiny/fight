@@ -38,6 +38,7 @@ define(['core/imageCvs'],function (imageCvs){
 				i++;
 			}
 			--count;
+			//save = this[key];
 			if( loop ){
 				if( count <= 0 ){
 					count = save;
@@ -130,20 +131,18 @@ define(['core/imageCvs'],function (imageCvs){
 		*				{Funtion}  callBack
 		*				{Number}   callBackIndex
 		*/
-		},setAnimateList : function (params){
-			var _this = this;
-
-			_this.animateList = registerAnimate( params );
-
-			return this;
 		},addAnimateList : function( params ){
 			var _this = this;
-			_this.animateList[params.name] = createAnimateFunc({
-				loop : params.loop || false,
-				interval : params.interval || 0,
-				funcList : params.funcList || []
-			});
-			return this;
+			if( params instanceof Array ){
+				_this.animateList = registerAnimate( params );
+			}else{
+				_this.animateList[params.name] = createAnimateFunc({
+					loop : params.loop || false,
+					interval : params.interval || 0,
+					funcList : params.funcList || []
+				});
+			}
+			return _this;
 		},updataCtx : function(){
 			var _this = this,
 				shape = _this.shape,
@@ -167,7 +166,7 @@ define(['core/imageCvs'],function (imageCvs){
 
 			_ctx.restore();
 
-			return this;
+			return _this;
 		},show : function( name , frame ){
 			var _this = this;
 			if( name in _this.animateList ){
@@ -176,7 +175,7 @@ define(['core/imageCvs'],function (imageCvs){
 				console.error( name +' is not in animateList');
 			}
 
-			return this;
+			return _this;
 		}
 	};
 

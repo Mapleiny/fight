@@ -1,3 +1,11 @@
-define(['create/assembl.rule/assemble'],function ( Assemble ){
-	
+define(['create/assembl/control'],function ( AssembleControl ){
+	var Source = function(){
+		
+	};
+
+	Source.prototype = {
+
+	};
+
+	return Source;
 });

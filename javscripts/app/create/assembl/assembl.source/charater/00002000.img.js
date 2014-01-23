@@ -2,7 +2,11 @@ define(function(){
 	return {
 		'info' : {
 			'name' : '00002000.img',
-			'src' : ''
+			'srcInfo' : {
+				src : '../../image/charater/0002000.img.png',
+				width : 806,
+				height : 218
+			}
 		},
 		'data' : {
 			'alert.0.arm.png': {
