@@ -1,14 +1,11 @@
-define(['create/assembl/assembl.source/source.manage'],function (SourceManage){
+define(['create/assembl/assembl.source/source.manage','create/assembl/assembl.map/rule.manage'],function (SourceManage,RuleManage){
 	var Assemble = function(){
-		sourceManage = new SourceManage();
+		var _this = this;
+		_this.sourceManage = new SourceManage();
+		_this.ruleManage = new RuleManage();
 	};
 
 	Assemble.prototype = {
-		setSource : function(){
-			
-		},setAssemblMap : function(){
-
-		}
 	};
 
 	return Assemble;
