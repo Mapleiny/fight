@@ -1,4 +1,4 @@
-define(['require','create/assembl/path'],function ( require , Path ){
+define(['require','create/assembl/load'],function ( require , Load ){
 	var createCanvas = function( width , height ){
 		var _canvas = document.createElement('canvas');
 		_canvas.width = width;
@@ -8,39 +8,31 @@ define(['require','create/assembl/path'],function ( require , Path ){
 	var Manage = function(){
 		var _this = this;
 
-		_this.sources = {};
+		_this.sources = Load['source'];
 		_this.imageSources = {};
 	};
 
 	Manage.prototype = {
-		addSource : function( sourceName ){
+		getCvsImage : function( sourceName , sourceId ){
 			var _this = this,
-				source;
-			if( sourceName in Path ){
-				source = require( Path[sourceName] );
-			}else{
-				return false;
-			}
-			if( source ){
-				_this.sources[sourceName] = source;
-			}else{
-				return false;
-			}
-			return true;
-		},getCvsImage : function( sourceName , sourceId ){
-			var _this = this;
+				sources = _this.sources,
+				info , data;
 			if( !sourceName ){
 				return null;
 			}
-			if(  sourceName in _this.sources  ){
-				if( !_this.addSource( sourceName ) ){
-					return null;
-				}
+			if( sourceName in _this.sources  ){
+				info = sources[sourceName].info;
+				data = _this.sources[sourceName].data;
+				return {
+					width : info.srcInfo.width,
+					height : info.srcInfo.height,
+					src : _this.createImgObj(info,data[sourceId])
+				};
+			}else{
+
+				return null;
 			}
-
-			return _this.createImgObj(_this.sources[sourceName].info,_this.sources[sourceName].data[sourceId]);
-
-		},createImgObj = function( info , posObj ){
+		},createImgObj : function( info , posObj ){
 			var _this = this,
 				img = new Image(),
 				canvas = createCanvas( info.srcInfo.width , info.srcInfo.height ),
@@ -64,8 +56,6 @@ define(['require','create/assembl/path'],function ( require , Path ){
 				posObj.width,
 				posObj.height
 			);
-
-
 			return canvas;
 		}
 	};
