@@ -5,7 +5,11 @@ define(['require','create/assembl/source/manage','create/assembl/load'],function
 	 * (body.origin + body.map.navel) - 
 	 * (arm.origin +  arm.map.navel)
 	 *
-	 * z-index : body head weapon arm 
+	 * Body.body(clothes shoes)
+	 * Head.head Head.ear earring eyes glass Hair cap
+	 * Weapon 
+	 * Body.arm Body.lhand Body.rhand Body.armOverHair(Glove,arm)
+	 * 
 	 */
 	var Manage = function(){
 		var _this = this;
@@ -16,17 +20,28 @@ define(['require','create/assembl/source/manage','create/assembl/load'],function
 	};
 
 	Manage.prototype = {
-		assembl : function( action ){
+		group : ['body'],
+		assembl : function(){
 			var _this = this,
-				i , sum;
-			if( params && params instanceof Array ){
-				for( i = 0 , sum = params.length ; i < sum ; ++i ){
+				group = _this.group,
+				rules = _this.rules,
+				getAssemblInfo = _this.getAssemblInfo,
+				, ;
+			if( unit in rules ){
 
-				}
-				return ;
-			}else{
-				return null;
 			}
+
+			return {
+
+			};
+		},getAssemblInfo : function( group ){
+
+			return {
+				src : ,
+				x : ,
+				y : ,
+				zIndex :
+			};
 		}
 	}
 });

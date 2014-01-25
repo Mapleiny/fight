@@ -11,11 +11,7 @@ define(['create/assembl/rule/manage'],function (RuleManage){
 	};
 
 	AssembleControl.prototype = {
-		getImg : function( animateList ){
-			var _this = this;
-			
-			return _this.assemblImage(animateList);
-		},assemblImage : function( animateList ){
+		assemblImage : function(){
 			var _this = this,
 				ruleManage = _this.ruleManage,
 				list = [],
@@ -25,8 +21,9 @@ define(['create/assembl/rule/manage'],function (RuleManage){
 				width = 0,
 				height = 0,
 				rule = {};
+			frames = ruleManage.assembl();
 			for( i = 0 , sum = animateList.length ; i < sum ; ++i ){
-				frames = ruleManage.assembl( animateList[i] );
+				
 				ctx.drawImage(
 					frames.src,
 					0,

@@ -1,4 +1,4 @@
-define(['create/drag','core/animateObj','create/canvas','util/object','create/assembl_rule'],function (Drag,AnimateObj,CanvasManage,object,Assembl){
+define(['create/drag','core/animateObj','create/canvas','util/object'],function (Drag,AnimateObj,CanvasManage,object){
 
 	var CanvasInfo = function(width,height){
 		this.name = '';
@@ -525,21 +525,21 @@ define(['create/drag','core/animateObj','create/canvas','util/object','create/as
 			});
 
 			// 自动合成图片
-			var assembl = new Assembl();
-			assemblSoruce.on('click',function(){
-				var list = selectedSoruce.find('.on .unit'),
-					i , sum , data;
-				for( i = 0 , sum = list.length ; i < sum ; ++i ){
-					data = list.eq(i).data();
-					console.log(data);
-					info = assembl.getData( data.name );
-					soruceManage.setCurrentSoruce( data.id )
-						.setSoruceData({
-							posX : info.shiftX,
-							posY : info.shiftY
-						}).updateCanvas();
-				}
-			});
+			// var assembl = new Assembl();
+			// assemblSoruce.on('click',function(){
+			// 	var list = selectedSoruce.find('.on .unit'),
+			// 		i , sum , data;
+			// 	for( i = 0 , sum = list.length ; i < sum ; ++i ){
+			// 		data = list.eq(i).data();
+			// 		console.log(data);
+			// 		info = assembl.getData( data.name );
+			// 		soruceManage.setCurrentSoruce( data.id )
+			// 			.setSoruceData({
+			// 				posX : info.shiftX,
+			// 				posY : info.shiftY
+			// 			}).updateCanvas();
+			// 	}
+			// });
 
 
 

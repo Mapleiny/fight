@@ -1,7 +1,7 @@
 define(function(){
 	return {
 		source : {
-			'skin' : {
+			'00002000.img' : {
 				'info' : {
 					'name' : '00002000.img',
 					'srcInfo' : {
@@ -61,31 +61,34 @@ define(function(){
 				}
 			}
 		},rule : {
-			'skin' : {
+			'unitId' : {
 				'walk1': {
 					'0': {
-						'body': {
-							'src': 'walk1.0.body.png',
-							'origin': '19,32',
-							'map': {
-								'neck': '-4,-32',
-								'navel': '-6,-20'
+						'body' : {
+							'body': {
+								'src': 'walk1.0.body.png',
+								'origin': '19,32',
+								'map': {
+									'neck': '-4,-32',
+									'navel': '-6,-20'
+								},
+								'z': 'body',
+								'group': 'skin',
+								'source' : '00002000.img'
 							},
-							'z': 'body',
-							'group': 'skin'
-						},
-						'arm': {
-							'src': 'walk1.0.arm.png',
-							'origin': '6,8',
-							'map': {
-								'navel': '-12,2',
-								'hand': '1,5'
+							'arm': {
+								'src': 'walk1.0.arm.png',
+								'origin': '6,8',
+								'map': {
+									'navel': '-12,2',
+									'hand': '1,5'
+								},
+								'z': 'arm',
+								'group': 'skin'
 							},
-							'z': 'arm',
-							'group': 'skin'
-						},
-						'face': '1',
-						'delay': '180'
+							'face': '1',
+							'delay': '180'
+						}
 					},
 					'1': {
 						'body': {
@@ -160,7 +163,7 @@ define(function(){
 						'delay': '180'
 					}
 				}
-			}
+			},'head' : 
 		}
 	};
 });
