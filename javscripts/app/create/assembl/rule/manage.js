@@ -11,6 +11,12 @@ define(['require','create/assembl/source/manage','create/assembl/load'],function
 	 * Body.arm Body.lhand Body.rhand Body.armOverHair(Glove,arm)
 	 * 
 	 */
+	var createCanvas = function( width , height ){
+		var _canvas = document.createElement('canvas');
+		_canvas.width = width;
+		_canvas.height = height;
+		return _canvas;
+	};
 	var Manage = function(){
 		var _this = this;
 
@@ -21,27 +27,59 @@ define(['require','create/assembl/source/manage','create/assembl/load'],function
 
 	Manage.prototype = {
 		group : ['body'],
+		src : null,
 		assembl : function(){
 			var _this = this,
 				group = _this.group,
 				rules = _this.rules,
 				getAssemblInfo = _this.getAssemblInfo,
-				, ;
+				result = {} ;
 			if( unit in rules ){
+				result[unit] = getAssemblInfo(rules[unit]);
+			}
+			result['src'] = _this.src;
+			return result;
+		},unitAssembl : function( animateList ){
+			var _this = this,
+				singleFrameAssembl = _this.singleFrameAssembl;
+				frame ,
+				maxHeight = 0,
+				maxWidth = 0,
+				canvas = null,
+				ctx = null,
+				frameCount = 0,
+				singleFrameInfo = {},
+				result = {};
 
+			for( frameKey in animateList ){
+				frame = animateList[frameKey];
+				singleFrameInfo[frameKey] = singleFrameAssembl(frame);
+				maxHeight = maxHeight > singleFrameInfo[frameKey].height ? maxHeight : singleFrameInfo[frameKey].height;
+				maxWidth = maxWidth > singleFrameInfo[frameKey].width ? maxWidth : singleFrameInfo[frameKey].width;
+				++frameCount;
+			}
+			canvas = new createCanvas(maxWidth*frameCount,maxHeight);
+			ctx = canvas.getContext('2d');
+			frameCount = 0,
+			for( frameKey in singleFrameInfo ){
+				frame = singleFrameInfo[frameKey];
+				ctx.drawImage(
+					frame.src,
+					
+				);
 			}
 
-			return {
 
-			};
-		},getAssemblInfo : function( group ){
-
+			return ;
+		},singleFrameAssembl : function(){
 			return {
 				src : ,
-				x : ,
-				y : ,
-				zIndex :
-			};
+				width : ,
+				height : ,
+				bodyOrigin : ,
+				x :,
+				y :,
+			}
 		}
 	}
 });

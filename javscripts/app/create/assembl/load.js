@@ -73,8 +73,7 @@ define(function(){
 									'navel': '-6,-20'
 								},
 								'z': 'body',
-								'group': 'skin',
-								'source' : '00002000.img'
+								'group': 'skin'
 							},
 							'arm': {
 								'src': 'walk1.0.arm.png',
@@ -91,79 +90,85 @@ define(function(){
 						}
 					},
 					'1': {
-						'body': {
-							'src': 'walk1.1.body.png',
-							'origin': '16,32',
-							'map': {
-								'neck': '-4,-31',
-								'navel': '-6,-20'
+						'body' : {
+							'body': {
+								'src': 'walk1.1.body.png',
+								'origin': '16,32',
+								'map': {
+									'neck': '-4,-31',
+									'navel': '-6,-20'
+								},
+								'z': 'body',
+								'group': 'skin'
 							},
-							'z': 'body',
-							'group': 'skin'
-						},
-						'arm': {
-							'src': 'walk1.1.arm.png',
-							'origin': '6,9',
-							'map': {
-								'navel': '-6,-1',
-								'hand': '-2,5'
+							'arm': {
+								'src': 'walk1.1.arm.png',
+								'origin': '6,9',
+								'map': {
+									'navel': '-6,-1',
+									'hand': '-2,5'
+								},
+								'z': 'arm',
+								'group': 'skin'
 							},
-							'z': 'arm',
-							'group': 'skin'
-						},
-						'face': '1',
-						'delay': '180'
+							'face': '1',
+							'delay': '180'
+						}
 					},
 					'2': {
-						'body': {
-							'src': 'walk1.2.body.png',
-							'origin': '19,32',
-							'map': {
-								'neck': '-4,-32',
-								'navel': '-6,-20'
+						'body' : {
+							'body': {
+								'src': 'walk1.2.body.png',
+								'origin': '19,32',
+								'map': {
+									'neck': '-4,-32',
+									'navel': '-6,-20'
+								},
+								'z': 'body',
+								'group': 'skin'
 							},
-							'z': 'body',
-							'group': 'skin'
-						},
-						'arm': {
-							'src': 'walk1.2.arm.png',
-							'origin': '6,8',
-							'map': {
-								'navel': '-12,2',
-								'hand': '1,6'
+							'arm': {
+								'src': 'walk1.2.arm.png',
+								'origin': '6,8',
+								'map': {
+									'navel': '-12,2',
+									'hand': '1,6'
+								},
+								'z': 'arm',
+								'group': 'skin'
 							},
-							'z': 'arm',
-							'group': 'skin'
-						},
-						'face': '1',
-						'delay': '180'
+							'face': '1',
+							'delay': '180'
+						}
 					},
 					'3': {
-						'body': {
-							'src': 'walk1.3.body.png',
-							'origin': '21,31',
-							'map': {
-								'neck': '-4,-31',
-								'navel': '-6,-18'
+						'body' : {
+							'body': {
+								'src': 'walk1.3.body.png',
+								'origin': '21,31',
+								'map': {
+									'neck': '-4,-31',
+									'navel': '-6,-18'
+								},
+								'z': 'body',
+								'group': 'skin'
 							},
-							'z': 'body',
-							'group': 'skin'
-						},
-						'arm': {
-							'src': 'walk1.3.arm.png',
-							'origin': '7,7',
-							'map': {
-								'navel': '-13,4',
-								'hand': '3,5'
+							'arm': {
+								'src': 'walk1.3.arm.png',
+								'origin': '7,7',
+								'map': {
+									'navel': '-13,4',
+									'hand': '3,5'
+								},
+								'z': 'arm',
+								'group': 'skin'
 							},
-							'z': 'arm',
-							'group': 'skin'
-						},
-						'face': '1',
-						'delay': '180'
+							'face': '1',
+							'delay': '180'
+						}
 					}
 				}
-			},'head' : 
+			}
 		}
 	};
 });
