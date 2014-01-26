@@ -3,7 +3,7 @@ define(function(){
 		'info' : {
 			'name' : '00002000.img',
 			'srcInfo' : {
-				src : '../../image/charater/0002000.img.png',
+				src : '../../image/charater/00002000.img.png',
 				width : 806,
 				height : 218
 			}

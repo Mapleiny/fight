@@ -161,14 +161,11 @@ define(['create/drag'],function (Drag){
 				},objToStr = function( obj ){
 					var key,str,arr=[];
 					for( key in obj ){
-						if( !(/setitem/.test(key)) ){
-							if( obj[key] instanceof Object ){
-								arr.push("'"+key+"':"+objToStr(obj[key]));
-							}else{
-								arr.push("'"+key+"':'"+obj[key]+"'");
-							}
+						if( obj[key] instanceof Object ){
+							arr.push("'"+key+"':"+objToStr(obj[key]));
+						}else{
+							arr.push("'"+key+"':'"+obj[key]+"'");
 						}
-							
 					}
 					return '{'+arr.join(',')+'}';
 				};
