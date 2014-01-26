@@ -32,10 +32,10 @@ define(['require','create/assembl/source/manage','create/assembl/load'],function
 			var _this = this,
 				group = _this.group,
 				rules = _this.rules,
-				getAssemblInfo = _this.getAssemblInfo,
+				unitAssembl = _this.unitAssembl,
 				result = {} ;
 			if( unit in rules ){
-				result[unit] = getAssemblInfo(rules[unit]);
+				result[unit] = unitAssembl(rules[unit]);
 			}
 			result['src'] = _this.src;
 			return result;
