@@ -142,7 +142,11 @@ var createObj = function( obj , name , value ){
 			if( obj[key] instanceof Object ){
 				arr.push("'"+key+"':"+objToStr(obj[key]));
 			}else{
-				arr.push("'"+key+"':'"+obj[key]+"'");
+				if( isNaN( +obj[key] ) ){
+					arr.push("'"+key+"':'"+obj[key]+"'");
+				}else{
+					arr.push("'"+key+"':"+obj[key]);
+				}
 			}
 		}
 			
@@ -154,7 +158,11 @@ var createObj = function( obj , name , value ){
 		if( obj[key] instanceof Object ){
 			arr.push("'"+key+"':"+objToStr(obj[key]));
 		}else{
-			arr.push("'"+key+"':'"+obj[key]+"'");
+			if( isNaN( +obj[key] ) ){
+				arr.push("'"+key+"':'"+obj[key]+"'");
+			}else{
+				arr.push("'"+key+"':"+obj[key]);
+			}
 		}
 	}
 	return '{'+arr.join(',')+'}';
@@ -174,7 +182,7 @@ var createObj = function( obj , name , value ){
 		key = trs[i][0].split('.');
 		createObj(obj,key,trs[i][1]);
 	}
-	obj.info.name = name;
+	//obj.info.name = name;
 	saveRule(objToStr(obj),name,ruleSaveDir);
 },sourceCreate = function( images , name , imageSaveDir ,sourceSaveDir){
 	var sprite = new Sprite(),
@@ -249,4 +257,4 @@ var create = function( name , relativeDir ){
 	});
 };
 
-create('01050078.img','charater/longcoat/');
+create('0206.img','item/consume/');

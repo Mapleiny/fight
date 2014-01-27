@@ -1,10 +1,10 @@
 define(function() {
 	return {
 		'info': {
-			'name' : '00020000.img',
 			'islot': 'Fc',
 			'vslot': 'Fc',
-			'cash': '1'
+			'cash': 1,
+			'name': '00020000.img'
 		},
 		'default': {
 			'face': {
@@ -26,7 +26,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '60'
+				'delay': 60
 			},
 			'1': {
 				'face': {
@@ -37,7 +37,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '60'
+				'delay': 60
 			},
 			'2': {
 				'face': {
@@ -48,7 +48,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '60'
+				'delay': 60
 			}
 		},
 		'hit': {
@@ -145,7 +145,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '120'
+				'delay': 120
 			},
 			'1': {
 				'face': {
@@ -156,7 +156,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '120'
+				'delay': 120
 			}
 		},
 		'oops': {
@@ -170,7 +170,7 @@ define(function() {
 					'z': 'face'
 				}
 			},
-			'delay': '1640'
+			'delay': 1640
 		},
 		'cheers': {
 			'0': {
@@ -230,7 +230,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '150'
+				'delay': 150
 			},
 			'1': {
 				'face': {
@@ -241,7 +241,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '150'
+				'delay': 150
 			}
 		},
 		'despair': {
@@ -254,7 +254,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '150'
+				'delay': 150
 			},
 			'1': {
 				'face': {
@@ -265,7 +265,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '150'
+				'delay': 150
 			}
 		},
 		'love': {
@@ -278,7 +278,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '150'
+				'delay': 150
 			},
 			'1': {
 				'face': {
@@ -289,7 +289,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '150'
+				'delay': 150
 			}
 		},
 		'shine': {
@@ -314,7 +314,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '110'
+				'delay': 110
 			},
 			'1': {
 				'face': {
@@ -325,7 +325,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '110'
+				'delay': 110
 			}
 		},
 		'hum': {
@@ -338,7 +338,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '110'
+				'delay': 110
 			},
 			'1': {
 				'face': {
@@ -349,7 +349,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '110'
+				'delay': 110
 			}
 		},
 		'bowing': {
@@ -362,7 +362,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '110'
+				'delay': 110
 			},
 			'1': {
 				'face': {
@@ -373,7 +373,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '110'
+				'delay': 110
 			}
 		},
 		'hot': {
@@ -386,7 +386,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '110'
+				'delay': 110
 			},
 			'1': {
 				'face': {
@@ -397,7 +397,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '110'
+				'delay': 110
 			}
 		},
 		'dam': {
@@ -410,7 +410,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '240'
+				'delay': 240
 			},
 			'1': {
 				'face': {
@@ -421,7 +421,7 @@ define(function() {
 					},
 					'z': 'face'
 				},
-				'delay': '240'
+				'delay': 240
 			}
 		},
 		'qBlue': {
@@ -437,4 +437,4 @@ define(function() {
 			}
 		}
 	};
-})
+});

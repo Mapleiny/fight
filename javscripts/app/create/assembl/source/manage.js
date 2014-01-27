@@ -13,7 +13,7 @@ define(['require','create/assembl/load'],function ( require , Load ){
 	};
 
 	Manage.prototype = {
-		getCvsImage : function( sourceName , sourceId ){
+		getCvsImage : function( group , sourceId ){
 			var _this = this,
 				sources = _this.sources,
 				info , data;

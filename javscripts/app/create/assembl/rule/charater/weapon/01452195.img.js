@@ -1,7 +1,6 @@
 define(function() {
 	return {
 		'info': {
-			'name' : '01452195.img',
 			'icon': {
 				'src': 'info.icon.png',
 				'origin': '0,32'
@@ -12,26 +11,27 @@ define(function() {
 			},
 			'islot': 'WpSi',
 			'vslot': 'WpSi',
-			'walk': '1',
-			'stand': '1',
-			'attack': '3',
+			'walk': 1,
+			'stand': 1,
+			'attack': 3,
 			'afterImage': 'bow',
 			'sfx': 'bow',
-			'reqJob': '4',
-			'reqLevel': '95',
-			'reqSTR': '0',
-			'reqDEX': '270',
-			'reqINT': '0',
-			'reqLUK': '0',
-			'incPAD': '105',
-			'incSpeed': '12',
-			'tuc': '8',
-			'price': '43000',
-			'attackSpeed': '6',
-			'cash': '0',
-			'knockback': '75',
-			'tradeBlock': '1',
-			'notSale': '1'
+			'reqJob': 4,
+			'reqLevel': 95,
+			'reqSTR': 0,
+			'reqDEX': 270,
+			'reqINT': 0,
+			'reqLUK': 0,
+			'incPAD': 105,
+			'incSpeed': 12,
+			'tuc': 8,
+			'price': 43000,
+			'attackSpeed': 6,
+			'cash': 0,
+			'knockback': 75,
+			'tradeBlock': 1,
+			'notSale': 1,
+			'name': '01452195.img'
 		},
 		'walk1': {
 			'0': {

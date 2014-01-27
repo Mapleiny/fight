@@ -1,7 +1,6 @@
 define(function() {
 	return {
 		'info': {
-			'name' : '01002002.img',
 			'icon': {
 				'src': 'info.icon.png',
 				'origin': '0,31'
@@ -12,16 +11,17 @@ define(function() {
 			},
 			'islot': 'Cp',
 			'vslot': 'CpH1H4',
-			'reqJob': '1',
-			'reqLevel': '10',
-			'reqSTR': '0',
-			'reqDEX': '0',
-			'reqINT': '0',
-			'reqLUK': '0',
-			'incPDD': '12',
-			'tuc': '7',
-			'price': '300',
-			'cash': '0'
+			'reqJob': 1,
+			'reqLevel': 10,
+			'reqSTR': 0,
+			'reqDEX': 0,
+			'reqINT': 0,
+			'reqLUK': 0,
+			'incPDD': 12,
+			'tuc': 7,
+			'price': 300,
+			'cash': 0,
+			'name': '01002002.img'
 		},
 		'default': {
 			'default': {
