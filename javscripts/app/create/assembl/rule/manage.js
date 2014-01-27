@@ -1,4 +1,4 @@
-define(['require','create/assembl/source/manage','create/assembl/load'],function (require,SourceManage,Load){
+define(['require','create/assembl/source/manage'],function (require,SourceManage){
 
 	var createCanvas = function( width , height ){
 		var _canvas = document.createElement('canvas');
@@ -6,64 +6,111 @@ define(['require','create/assembl/source/manage','create/assembl/load'],function
 		_canvas.height = height;
 		return _canvas;
 	};
-	var Manage = function(){
+	var Manage = function(load){
 		var _this = this;
 
-		_this.sourceManage = new SourceManage();
+		_this.sourceManage = new SourceManage(load['source']);
 
-		_this.rules = Load['rule'];
+		_this.rules = load['rule'];
+
 	};
 
 	Manage.prototype = {
-		group : ['body'],
-		src : null,
 		assembl : function(){
 			var _this = this,
-				group = _this.group,
 				rules = _this.rules,
 				unitAssembl = _this.unitAssembl,
-				result = {} ;
+				result = {},
+				unit;
 			result['unit'] = {};
 			for( unit in rules ){
 				result['unit'][unit] = {};
 				for( action in rules[unit] ){
-					result['unit'][unit][action] = unitAssembl(rules[unit][action]);
+					result['unit'][unit][action] = unitAssembl.call(_this,rules[unit][action]);
 				}
 			}
-			result['src'] = _this.src;
 			return result;
 		},unitAssembl : function( animateList ){
 			var _this = this,
-				singleFrameAssembl = _this.singleFrameAssembl;
-				frame ,
+				singleFrameAssembl = _this.singleFrameAssembl,
+				canvas = createCanvas(10,10),
+				ctx = canvas.getContext('2d'),
+				frame,
 				maxHeight = 0,
 				maxWidth = 0,
 				frameCount = 0,
-				singleFrameInfo = {},
-				result = {};
-
+				singleFrameInfo = null,
+				maxLeft = 0,
+				maxRight = 0,
+				maxTop = 0,
+				maxBottom = 0,
+				eachWidth = 0,
+				eachHeight = 0,
+				offsetX = 0,
+				offsetY = 0,
+				frameInfos = {},
+				rule = [];
 			for( frameKey in animateList ){
 				frame = animateList[frameKey];
-				singleFrameInfo[frameKey] = singleFrameAssembl(frame);
-				maxHeight = maxHeight > singleFrameInfo[frameKey].height ? maxHeight : singleFrameInfo[frameKey].height;
-				maxWidth = maxWidth > singleFrameInfo[frameKey].width ? maxWidth : singleFrameInfo[frameKey].width;
+				frameInfos[frameKey] = singleFrameInfo = singleFrameAssembl.call(_this,frame);
+
+				maxLeft = maxLeft > singleFrameInfo.origin.x ? maxLeft : singleFrameInfo.origin.x;
+				maxRight = maxRight > singleFrameInfo.width - singleFrameInfo.origin.x ? maxRight : singleFrameInfo.width - singleFrameInfo.origin.x;
+				maxTop = maxTop > singleFrameInfo.origin.y ? maxTop : singleFrameInfo.origin.y;
+				maxBottom = maxBottom > singleFrameInfo.height - singleFrameInfo.origin.y ? maxBottom : singleFrameInfo.height - singleFrameInfo.origin.y;
 				++frameCount;
 			}
-			frameCount = 0,
-			for( frameKey in singleFrameInfo ){
-				frame = singleFrameInfo[frameKey];
+
+			eachWidth = maxLeft + maxRight;
+			eachHeight = maxTop + maxBottom;
+
+			canvas.width = eachWidth * frameCount;
+			canvas.height = eachHeight;
+
+			frameCount = 0;
+			for( frameKey in frameInfos ){
+				singleFrameInfo = frameInfos[frameKey];
+				offsetX = eachWidth * frameCount + maxLeft - singleFrameInfo.origin.x;
+				offsetY = maxTop - singleFrameInfo.origin.y;
+				ctx.drawImage(
+					singleFrameInfo.src,
+					0,
+					0,
+					singleFrameInfo.width,
+					singleFrameInfo.height,
+					offsetX,
+					offsetY,
+					singleFrameInfo.width,
+					singleFrameInfo.height
+				);
+				rule.push({
+					x : eachWidth * frameCount,
+					y : 0
+				});
+				++frameCount;
 			}
-			_this,src = _this.draw();
-			return result;
+			return {
+				src : canvas,
+				width : eachWidth * frameCount,
+				height : eachHeight,
+				data : {
+					eachWidth : eachWidth,
+					eachHeight : eachHeight,
+					rule : rule
+				}
+			};
 		},singleFrameAssembl : function( frame ){
 			var _this = this,
 				sourceManage = _this.sourceManage,
-				canvas = new createCanvas(10,10),
-				ctx = canvas.getContext('2d');
+				canvas = createCanvas(500,500),
+				ctx = canvas.getContext('2d'),
+				canvasWidth = 0,
+				canvasHeight = 0,
 				part = null,
 				key = null,
 				map = null,
 				origin = {},
+				bodyOrigin = {},
 				brow = {},
 				neck = {},
 				hand = {},
@@ -78,10 +125,15 @@ define(['require','create/assembl/source/manage','create/assembl/load'],function
 				bodyNavel = {},
 				bodyHand = {},
 				lHandMove = {},
+				offset = {},
 				source = null,
+				tempImgData = null,
+				maxX,maxY,minX,minY,
 				temp;
 				//keySequence = ['body','arm','cap',''];
 				drawData = {};
+			maxX = maxY = 0;
+			minX = minY = 100000;
 			for( key in frame ){
 				part = frame[key];
 				map = part['map'];
@@ -91,6 +143,10 @@ define(['require','create/assembl/source/manage','create/assembl/load'],function
 					temp = part['origin'].split(',');
 					origin.x = -temp[0];
 					origin.y = -temp[1];
+					if( key == 'body' ){
+						bodyOrigin.x = -temp[0];
+						bodyOrigin.y = -temp[1];
+					}
 				}
 
 				// brow
@@ -130,7 +186,7 @@ define(['require','create/assembl/source/manage','create/assembl/load'],function
 						bodyHand = hand;
 					}
 					offset.x = origin.x + hand.x + armNavel.x - armHand.x - bodyNavel.x;
-    				offset.y = origin.y + Hand.y + armNavel.y - armHand.y - bodyNavel.y;
+    				offset.y = origin.y + hand.y + armNavel.y - armHand.y - bodyNavel.y;
 				}
 
 				// handMove
@@ -160,7 +216,16 @@ define(['require','create/assembl/source/manage','create/assembl/load'],function
 					offset.y = origin.y + navel.y - bodyNavel.y;
 				}
 
+				offset.x += 250;
+				offset.y += 250;
+
 				source = sourceManage.getCvsImage(part.group,part.src);
+
+				maxX = maxX > offset.x+source.width ? maxX : offset.x+source.width;
+				maxY = maxY > offset.y+source.height ? maxY : offset.y+source.height;
+				minX = minX < offset.x ? minX : offset.x;
+				minY = minY < offset.y ? minY : offset.y;
+
 				ctx.drawImage(
 					source.src,
 					0,
@@ -173,21 +238,22 @@ define(['require','create/assembl/source/manage','create/assembl/load'],function
 					source.height
 				);
 			}
+			canvasWidth = maxX - minX;
+			canvasHeight = maxY - minY;
+			tempImgData = ctx.getImageData(minX,minY,canvasWidth,canvasHeight);
+			canvas.width = canvasWidth;
+			canvas.height = canvasHeight;
+			ctx.clearRect(canvasWidth,canvasHeight);
+			ctx.putImageData(tempImgData,0,0);
 
-			
 			return {
-				src : ,
-				width : ,
-				height : ,
-				x :,
-				y :
+				src : canvas,
+				width : canvasWidth,
+				height : canvasHeight,
+				origin : bodyOrigin
 			};
-		},draw : function( list ){
-			var _this = this,
-				canvas = new createCanvas(list.width,list.height),
-				ctx = canvas.getContext('2d');
-
-			return canvas;
 		}
-	}
+	};
+
+	return Manage;
 });

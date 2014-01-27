@@ -5,9 +5,9 @@ define(['create/assembl/rule/manage'],function (RuleManage){
 		_canvas.height = height || 1;
 		return _canvas;
 	};
-	var AssembleControl = function(){
+	var AssembleControl = function( load ){
 		var _this = this;
-		_this.ruleManage = new RuleManage();
+		_this.ruleManage = new RuleManage(load);
 	};
 
 	AssembleControl.prototype = {
@@ -22,6 +22,7 @@ define(['create/assembl/rule/manage'],function (RuleManage){
 				height = 0,
 				rule = {};
 			frames = ruleManage.assembl();
+			return frames;
 			for( i = 0 , sum = animateList.length ; i < sum ; ++i ){
 				
 				ctx.drawImage(

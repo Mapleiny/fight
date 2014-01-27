@@ -43,7 +43,6 @@ Sprite.prototype = {
 		ctx = canvas.getContext('2d');
 		breakPoint = info.warpBreak.shift();
 
-
 		for( i = 0 , sum = source.length ; i < sum ; ++i ){
 			ctx.drawImage(
 				source[i].image,
@@ -64,6 +63,7 @@ Sprite.prototype = {
 			};
 			x += source[i].width;
 			if( i == breakPoint ){
+
 				breakPoint = info.warpBreak.shift();
 				x = 0;
 				y += info.eachHeight.shift();
@@ -106,12 +106,13 @@ Sprite.prototype = {
 			}
 		}
 
+
+
 		if( !isWarpBreak ){
-			height = maxHeight;
 			maxWidth = width;
 		}
 		return {
-			height : height,
+			height : height + maxHeight,
 			width : maxWidth,
 			warpBreak : warpBreak,
 			eachHeight : eachHeight
@@ -138,7 +139,7 @@ var createObj = function( obj , name , value ){
 },objToStr = function( obj ){
 	var key,str,arr=[];
 	for( key in obj ){
-		if( !(/setitem|eburster/.test(key)) ){
+		if( !(/setitem|eburster|ghost/.test(key)) ){
 			if( obj[key] instanceof Object ){
 				arr.push("'"+key+"':"+objToStr(obj[key]));
 			}else{
