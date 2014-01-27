@@ -2,8 +2,8 @@
 // 
 var config = {
 		resourcesDir : 'D:/yvn2_mapledump3/resources/',
-		imageSaveDir : 'C:/Users/bjyinheng/Documents/GitHub/fight/images/',
-		saveDir : 'C:/Users/bjyinheng/Documents/GitHub/fight/javscripts/app/create/assembl/',
+		imageSaveDir : 'C:/Users/Maple/Documents/GitHub/fight/images/',
+		saveDir : 'C:/Users/Maple/Documents/GitHub/fight/javscripts/app/create/assembl/',
 	},fs = require('fs'),
 	Canvas = require('canvas');
 	//myWindow = jsdom().createWindow(),
@@ -182,7 +182,7 @@ var createObj = function( obj , name , value ){
 		key = trs[i][0].split('.');
 		createObj(obj,key,trs[i][1]);
 	}
-	//obj.info.name = name;
+	obj.info.name = name;
 	saveRule(objToStr(obj),name,ruleSaveDir);
 },sourceCreate = function( images , name , imageSaveDir ,sourceSaveDir){
 	var sprite = new Sprite(),
@@ -257,4 +257,4 @@ var create = function( name , relativeDir ){
 	});
 };
 
-create('0206.img','item/consume/');
+create('00002000.img','charater/');
