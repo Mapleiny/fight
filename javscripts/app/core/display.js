@@ -20,7 +20,7 @@ define(['core/imageCvs'],function (imageCvs){
 		_canvas.height = height;
 		return _canvas;
 	},createAnimateFunc = function(init){
-		var sum , time , count , save , i , funcList , interval , loop , returnValue;
+		var sum , time , count , save , i , funcList , interval , loop;
 		sum = init.funcList.length;
 		interval = init.interval;
 		save = time = count = sum * interval;

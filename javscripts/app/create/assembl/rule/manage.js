@@ -40,10 +40,10 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 				maxWidth = 0,
 				frameCount = 0,
 				singleFrameInfo = null,
-				maxLeft = 0,
-				maxRight = 0,
-				maxTop = 0,
-				maxBottom = 0,
+				minLeft = 10000,
+				maxRight = -10000,
+				minTop = 10000,
+				maxBottom = -10000,
 				eachWidth = 0,
 				eachHeight = 0,
 				offsetX = 0,
@@ -54,15 +54,16 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 				frame = animateList[frameKey];
 				frameInfos[frameKey] = singleFrameInfo = singleFrameAssembl.call(_this,frame);
 
-				maxLeft = maxLeft > singleFrameInfo.origin.x ? maxLeft : singleFrameInfo.origin.x;
+				minLeft = minLeft < singleFrameInfo.origin.x ? minLeft : singleFrameInfo.origin.x;
 				maxRight = maxRight > singleFrameInfo.width - singleFrameInfo.origin.x ? maxRight : singleFrameInfo.width - singleFrameInfo.origin.x;
-				maxTop = maxTop > singleFrameInfo.origin.y ? maxTop : singleFrameInfo.origin.y;
+				minTop = minTop < singleFrameInfo.origin.y ? minTop : singleFrameInfo.origin.y;
 				maxBottom = maxBottom > singleFrameInfo.height - singleFrameInfo.origin.y ? maxBottom : singleFrameInfo.height - singleFrameInfo.origin.y;
 				++frameCount;
 			}
 
-			eachWidth = maxLeft + maxRight;
-			eachHeight = maxTop + maxBottom;
+			eachWidth = minLeft + maxRight;
+			eachHeight = minTop + maxBottom;
+			console.log(eachWidth,eachHeight);
 
 			canvas.width = eachWidth * frameCount;
 			canvas.height = eachHeight;
@@ -70,8 +71,9 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 			frameCount = 0;
 			for( frameKey in frameInfos ){
 				singleFrameInfo = frameInfos[frameKey];
-				offsetX = eachWidth * frameCount + maxLeft - singleFrameInfo.origin.x;
-				offsetY = maxTop - singleFrameInfo.origin.y;
+				offsetX = eachWidth * frameCount + singleFrameInfo.origin.x - minLeft;
+				offsetY = singleFrameInfo.origin.y - minTop;
+				console.log(offsetX-eachWidth * frameCount,offsetY);
 				ctx.drawImage(
 					singleFrameInfo.src,
 					0,
@@ -89,6 +91,7 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 				});
 				++frameCount;
 			}
+			$('<img />').attr('src',canvas.toDataURL()).appendTo('body');
 			return {
 				src : canvas,
 				width : eachWidth * frameCount,
@@ -155,7 +158,10 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 					brow.x = -temp[0];
 					brow.y = -temp[1];
 					if( key == 'head' ){
-						headBrow = brow;
+						headBrow = {
+							x : -temp[0],
+							y : -temp[1]
+						};
 					}
 					offset.x = origin.x + headNeck.x - bodyNeck.x - headBrow.x + brow.x;
     				offset.y = origin.y + headNeck.y - bodyNeck.y - headBrow.y + brow.y;
@@ -167,10 +173,16 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 					neck.x = -temp[0];
 					neck.y = -temp[1];
 					if( key == 'body' ){
-						bodyNeck = neck;
+						bodyNeck = {
+							x : -temp[0],
+							y : -temp[1]
+						};
 					}
 					if( key == 'head' ){
-						headNeck = neck;
+						headNeck = {
+							x : -temp[0],
+							y : -temp[1]
+						};
 					}
 				}
 
@@ -180,10 +192,16 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 					hand.x = -temp[0];
 					hand.y = -temp[1];
 					if( key == 'arm' ){
-						armHand = hand;
+						armHand = {
+							x : -temp[0],
+							y : -temp[1]
+						};
 					}
 					if( key == 'body' ){
-						bodyHand = hand;
+						bodyHand = {
+							x : -temp[0],
+							y : -temp[1]
+						};
 					}
 					offset.x = origin.x + hand.x + armNavel.x - armHand.x - bodyNavel.x;
     				offset.y = origin.y + hand.y + armNavel.y - armHand.y - bodyNavel.y;
@@ -195,7 +213,10 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 					handMove.x = -temp[0];
 					handMove.y = -temp[1];
 					if( key == 'lHand' ){
-						lHandMove = handMove;
+						lHandMove = {
+							x : -temp[0],
+							y : -temp[1]
+						};
 					}
 					offset.x = origin.x + handMove.x - lHandMove.x;
 					offset.y = origin.y + handMove.y - lHandMove.y;
@@ -207,10 +228,16 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 					navel.x = -temp[0];
 					navel.y = -temp[1];
 					if( key == 'arm' ){
-						armNavel = navel;
+						armNavel = {
+							x : -temp[0],
+							y : -temp[1]
+						};
 					}
 					if( key == 'body' ){
-						bodyNavel = navel;
+						bodyNavel = {
+							x : -temp[0],
+							y : -temp[1]
+						};
 					}
 					offset.x = origin.x + navel.x - bodyNavel.x;
 					offset.y = origin.y + navel.y - bodyNavel.y;
@@ -238,6 +265,7 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 					source.height
 				);
 			}
+			
 			canvasWidth = maxX - minX;
 			canvasHeight = maxY - minY;
 			tempImgData = ctx.getImageData(minX,minY,canvasWidth,canvasHeight);

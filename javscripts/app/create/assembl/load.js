@@ -4,7 +4,7 @@ define(function() {
 	};
 
 	Load.prototype = {
-		sourceAndRule : {
+		sourceAndRule: {
 			source: {
 				'groups': {
 					'body': {
@@ -12,6 +12,11 @@ define(function() {
 						'src': './images/charater/00002000.img.png',
 						'width': 806,
 						'height': 250
+					},'head' : {
+						'name': '00012000.img',
+						'src': './images/charater/00012000.img.png',
+						'width': 179,
+						'height': 35
 					}
 				},
 				'data': {
@@ -345,8 +350,8 @@ define(function() {
 
 			for (key in groups) {
 				imageSrc.push({
-					'key' : key,
-					'src' : groups[key].src
+					'key': key,
+					'src': groups[key].src
 				});
 			}
 			return imageSrc;
