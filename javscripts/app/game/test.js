@@ -48,22 +48,22 @@ define(['./source', 'create/assembl/load'], function(Source, Load) {
 						}
 					};
 				})(data.rule);
-				// setInterval(function() {
-				// 	control();
-				// 	//console.log();
-				// 	ctx.clearRect(0,0,canvasWidth,canvasHeight);
-				// 	ctx.drawImage(
-				// 		info.unit.unitId.walk1.src,
-				// 		offset.x,
-				// 		offset.y,
-				// 		data.eachWidth,
-				// 		data.eachHeight,
-				// 		0,
-				// 		0,
-				// 		data.eachWidth,
-				// 		data.eachHeight
-				// 	);
-				// }, fps);
+				setInterval(function() {
+					control();
+					//console.log();
+					ctx.clearRect(0,0,canvasWidth,canvasHeight);
+					ctx.drawImage(
+						info.unit.unitId.walk1.src,
+						offset.x,
+						offset.y,
+						data.eachWidth,
+						data.eachHeight,
+						0,
+						0,
+						data.eachWidth,
+						data.eachHeight
+					);
+				}, fps);
 
 			});
 			//control.draw();

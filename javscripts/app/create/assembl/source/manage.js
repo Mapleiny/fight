@@ -22,6 +22,7 @@ define(['require'],function ( require ){
 			if( !group ){
 				return null;
 			}
+
 			if( group in groups ){
 				return {
 					width : data[sourceId].width,

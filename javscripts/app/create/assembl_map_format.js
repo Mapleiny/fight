@@ -258,4 +258,4 @@ var create = function( name , relativeDir ){
 	});
 };
 
-create('00002000.img','charater/');
+create('00012000.img','charater/');

@@ -12,7 +12,14 @@ define(function() {
 						'src': './images/charater/00002000.img.png',
 						'width': 806,
 						'height': 250
-					},'head' : {
+					},
+					'face': {
+						'name': '00020000.img',
+						'src': './images/charater/face/00020000.img.png',
+						'width': 806,
+						'height': 26
+					},
+					'head': {
 						'name': '00012000.img',
 						'src': './images/charater/00012000.img.png',
 						'width': 179,
@@ -67,6 +74,18 @@ define(function() {
 						'y': 218,
 						'width': 29,
 						'height': 31
+					},
+					'front.head.png': {
+						'x': 138,
+						'y': 0,
+						'width': 39,
+						'height': 35
+					},
+					'default.face.png': {
+						'x': 388,
+						'y': 0,
+						'width': 26,
+						'height': 16
 					}
 				}
 			},
@@ -93,6 +112,27 @@ define(function() {
 								},
 								'z': 'arm',
 								'group': 'body'
+							},
+							'head': {
+								'src': 'front.head.png',
+								'origin': '19,17',
+								'map': {
+									'neck': '0,15',
+									'earOverHead': '15,10',
+									'earBelowHead': '-17,9',
+									'brow': '-4,-5'
+								},
+								'z': 'head',
+								'group': 'head'
+							},
+							'face': {
+								'src': 'default.face.png',
+								'origin': '13,8',
+								'map': {
+									'brow': '-1,-12'
+								},
+								'z': 'face',
+								'group': 'face'
 							}
 						},
 						'1': {
@@ -115,6 +155,27 @@ define(function() {
 								},
 								'z': 'arm',
 								'group': 'body'
+							},
+							'head': {
+								'src': 'front.head.png',
+								'origin': '19,17',
+								'map': {
+									'neck': '0,15',
+									'earOverHead': '15,10',
+									'earBelowHead': '-17,9',
+									'brow': '-4,-5'
+								},
+								'z': 'head',
+								'group': 'head'
+							},
+							'face': {
+								'src': 'default.face.png',
+								'origin': '13,8',
+								'map': {
+									'brow': '-1,-12'
+								},
+								'z': 'face',
+								'group': 'face'
 							}
 						},
 						'2': {
@@ -137,6 +198,27 @@ define(function() {
 								},
 								'z': 'arm',
 								'group': 'body'
+							},
+							'head': {
+								'src': 'front.head.png',
+								'origin': '19,17',
+								'map': {
+									'neck': '0,15',
+									'earOverHead': '15,10',
+									'earBelowHead': '-17,9',
+									'brow': '-4,-5'
+								},
+								'z': 'head',
+								'group': 'head'
+							},
+							'face': {
+								'src': 'default.face.png',
+								'origin': '13,8',
+								'map': {
+									'brow': '-1,-12'
+								},
+								'z': 'face',
+								'group': 'face'
 							}
 						},
 						'3': {
@@ -159,6 +241,27 @@ define(function() {
 								},
 								'z': 'arm',
 								'group': 'body'
+							},
+							'head': {
+								'src': 'front.head.png',
+								'origin': '19,17',
+								'map': {
+									'neck': '0,15',
+									'earOverHead': '15,10',
+									'earBelowHead': '-17,9',
+									'brow': '-4,-5'
+								},
+								'z': 'head',
+								'group': 'head'
+							},
+							'face': {
+								'src': 'default.face.png',
+								'origin': '13,8',
+								'map': {
+									'brow': '-1,-12'
+								},
+								'z': 'face',
+								'group': 'face'
 							}
 						}
 					}
@@ -340,7 +443,6 @@ define(function() {
 
 				})(imageSrc[i]);
 			}
-
 		},
 		getLoadSource: function() {
 			var _this = this,

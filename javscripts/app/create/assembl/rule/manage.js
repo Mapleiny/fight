@@ -10,7 +10,7 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 		var _this = this;
 
 		_this.sourceManage = new SourceManage(load['source']);
-
+		_this.zmap = load['zmap'];
 		_this.rules = load['rule'];
 
 	};
@@ -40,9 +40,9 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 				maxWidth = 0,
 				frameCount = 0,
 				singleFrameInfo = null,
-				minLeft = 10000,
+				maxLeft = -10000,
 				maxRight = -10000,
-				minTop = 10000,
+				maxTop = -10000,
 				maxBottom = -10000,
 				eachWidth = 0,
 				eachHeight = 0,
@@ -54,16 +54,15 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 				frame = animateList[frameKey];
 				frameInfos[frameKey] = singleFrameInfo = singleFrameAssembl.call(_this,frame);
 
-				minLeft = minLeft < singleFrameInfo.origin.x ? minLeft : singleFrameInfo.origin.x;
+				maxLeft = maxLeft > singleFrameInfo.origin.x ? maxLeft : singleFrameInfo.origin.x;
 				maxRight = maxRight > singleFrameInfo.width - singleFrameInfo.origin.x ? maxRight : singleFrameInfo.width - singleFrameInfo.origin.x;
-				minTop = minTop < singleFrameInfo.origin.y ? minTop : singleFrameInfo.origin.y;
+				maxTop = maxTop > singleFrameInfo.origin.y ? maxTop : singleFrameInfo.origin.y;
 				maxBottom = maxBottom > singleFrameInfo.height - singleFrameInfo.origin.y ? maxBottom : singleFrameInfo.height - singleFrameInfo.origin.y;
 				++frameCount;
 			}
 
-			eachWidth = minLeft + maxRight;
-			eachHeight = minTop + maxBottom;
-			console.log(eachWidth,eachHeight);
+			eachWidth = maxLeft + maxRight;
+			eachHeight = maxTop + maxBottom;
 
 			canvas.width = eachWidth * frameCount;
 			canvas.height = eachHeight;
@@ -71,9 +70,8 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 			frameCount = 0;
 			for( frameKey in frameInfos ){
 				singleFrameInfo = frameInfos[frameKey];
-				offsetX = eachWidth * frameCount + singleFrameInfo.origin.x - minLeft;
-				offsetY = singleFrameInfo.origin.y - minTop;
-				console.log(offsetX-eachWidth * frameCount,offsetY);
+				offsetX = eachWidth * frameCount + (maxLeft - singleFrameInfo.origin.x);
+				offsetY = maxTop - singleFrameInfo.origin.y;
 				ctx.drawImage(
 					singleFrameInfo.src,
 					0,
@@ -91,7 +89,6 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 				});
 				++frameCount;
 			}
-			$('<img />').attr('src',canvas.toDataURL()).appendTo('body');
 			return {
 				src : canvas,
 				width : eachWidth * frameCount,
@@ -107,6 +104,7 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 				sourceManage = _this.sourceManage,
 				canvas = createCanvas(500,500),
 				ctx = canvas.getContext('2d'),
+				zmap = _this.zmap,
 				canvasWidth = 0,
 				canvasHeight = 0,
 				part = null,
@@ -132,15 +130,15 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 				source = null,
 				tempImgData = null,
 				maxX,maxY,minX,minY,
+				i,sum,
+				drawData = [],
 				temp;
 				//keySequence = ['body','arm','cap',''];
-				drawData = {};
 			maxX = maxY = 0;
 			minX = minY = 100000;
 			for( key in frame ){
 				part = frame[key];
 				map = part['map'];
-
 				// origin
 				if( 'origin' in part ){
 					temp = part['origin'].split(',');
@@ -150,21 +148,6 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 						bodyOrigin.x = -temp[0];
 						bodyOrigin.y = -temp[1];
 					}
-				}
-
-				// brow
-				if( 'brow' in map ){
-					temp = map['brow'].split(',');
-					brow.x = -temp[0];
-					brow.y = -temp[1];
-					if( key == 'head' ){
-						headBrow = {
-							x : -temp[0],
-							y : -temp[1]
-						};
-					}
-					offset.x = origin.x + headNeck.x - bodyNeck.x - headBrow.x + brow.x;
-    				offset.y = origin.y + headNeck.y - bodyNeck.y - headBrow.y + brow.y;
 				}
 
 				// neck
@@ -184,6 +167,21 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 							y : -temp[1]
 						};
 					}
+				}
+
+				// brow
+				if( 'brow' in map ){
+					temp = map['brow'].split(',');
+					brow.x = -temp[0];
+					brow.y = -temp[1];
+					if( key == 'head' ){
+						headBrow = {
+							x : -temp[0],
+							y : -temp[1]
+						};
+					}
+					offset.x = origin.x + headNeck.x - bodyNeck.x - headBrow.x + brow.x;
+    				offset.y = origin.y + headNeck.y - bodyNeck.y - headBrow.y + brow.y;
 				}
 
 				// hand
@@ -245,8 +243,27 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 
 				offset.x += 250;
 				offset.y += 250;
+				
 
-				source = sourceManage.getCvsImage(part.group,part.src);
+				drawData.push({
+					'group' : part.group,
+					'src' : part.src,
+					'offset' : {
+						'x' : offset.x,
+						'y' : offset.y
+					},
+					'zIndex' : zmap[key]
+				});
+			}
+
+			drawData.sort(function (a,b){
+				return b.zIndex - a.zIndex ;
+			});
+
+
+			for( i = 0 , sum = drawData.length ; i < sum ; ++i ){
+				source = sourceManage.getCvsImage(drawData[i].group,drawData[i].src);
+				offset = drawData[i].offset;
 
 				maxX = maxX > offset.x+source.width ? maxX : offset.x+source.width;
 				maxY = maxY > offset.y+source.height ? maxY : offset.y+source.height;
@@ -268,6 +285,10 @@ define(['require','create/assembl/source/manage'],function (require,SourceManage
 			
 			canvasWidth = maxX - minX;
 			canvasHeight = maxY - minY;
+
+			bodyOrigin.x -= minX;
+			bodyOrigin.y -= minY;
+
 			tempImgData = ctx.getImageData(minX,minY,canvasWidth,canvasHeight);
 			canvas.width = canvasWidth;
 			canvas.height = canvasHeight;
