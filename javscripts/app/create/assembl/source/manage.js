@@ -1,4 +1,4 @@
-define(['require'],function ( require ){
+define(function (){
 	var createCanvas = function( width , height ){
 		var _canvas = document.createElement('canvas');
 		_canvas.width = width;

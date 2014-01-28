@@ -1,4 +1,4 @@
-define(['require','create/assembl/source/manage'],function (require,SourceManage){
+define(['create/assembl/source/manage'],function (SourceManage){
 
 	var createCanvas = function( width , height ){
 		var _canvas = document.createElement('canvas');
