@@ -36,20 +36,23 @@ define(['create/assembl/source/manage'],function (SourceManage){
 				canvas = createCanvas(10,10),
 				ctx = canvas.getContext('2d'),
 				frame,
-				maxHeight = 0,
-				maxWidth = 0,
-				frameCount = 0,
+				maxHeight,maxWidth,
+				frameCount,
 				singleFrameInfo = null,
-				maxLeft = -10000,
-				maxRight = -10000,
-				maxTop = -10000,
-				maxBottom = -10000,
-				eachWidth = 0,
-				eachHeight = 0,
-				offsetX = 0,
-				offsetY = 0,
+				maxLeft,maxRight,maxTop,maxBottom,
+				eachWidth,eachHeight,
+				offsetX,offsetY,
 				frameInfos = {},
 				rule = [];
+
+
+			// init
+			maxLeft = maxRight = maxTop = maxBottom = -Infinity;
+			eachWidth = eachHeight = 0;
+			offsetX = offsetY = 0;
+			maxHeight = maxWidth = 0;
+			frameCount = 0;
+
 			for( frameKey in animateList ){
 				frame = animateList[frameKey];
 				frameInfos[frameKey] = singleFrameInfo = singleFrameAssembl.call(_this,frame);
@@ -277,7 +280,7 @@ define(['create/assembl/source/manage'],function (SourceManage){
 					source.width,
 					source.height,
 					offset.x,
-					offset.y,
+					offset.y, 
 					source.width,
 					source.height
 				);

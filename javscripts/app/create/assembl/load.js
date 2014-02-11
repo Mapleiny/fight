@@ -7,24 +7,26 @@ define(function() {
 		sourceAndRule: {
 			source: {
 				'groups': {
-					'body': {
-						'name': '00002000.img',
-						'src': './images/charater/00002000.img.png',
-						'width': 806,
-						'height': 250
-					},
-					'face': {
-						'name': '00020000.img',
-						'src': './images/charater/face/00020000.img.png',
-						'width': 806,
-						'height': 26
-					},
-					'head': {
-						'name': '00012000.img',
-						'src': './images/charater/00012000.img.png',
-						'width': 179,
-						'height': 35
-					}
+					'charater' : {
+						'body': {
+							'name': '00002000.img',
+							'src': './images/charater/00002000.img.png',
+							'width': 806,
+							'height': 250
+						},
+						'face': {
+							'name': '00020000.img',
+							'src': './images/charater/face/00020000.img.png',
+							'width': 806,
+							'height': 26
+						},
+						'head': {
+							'name': '00012000.img',
+							'src': './images/charater/00012000.img.png',
+							'width': 179,
+							'height': 35
+						}
+					}	
 				},
 				'data': {
 					'walk1.0.arm.png': {
